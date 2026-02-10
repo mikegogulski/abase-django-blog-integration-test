@@ -1,0 +1,103 @@
+# Agent Prompts by Keyword
+
+Use these when the agent shows the keyword menu (see **AGENTIC-SAFETY-AND-INPUT.md**). You can type the keyword in chat, or use a Cursor Command / script that sends the text below.
+
+---
+
+## start
+
+Initial marching orders (session start).
+
+```
+First read ALL of the AGENTS.md file and README.md file super carefully and understand ALL of both. Then use your code investigation mode to fully understand the code, technical architecture, and purpose of the project. Then proceed with your next assigned bead: run bd ready --json (or bv --robot-next if BV is available), claim one task, and work on it. Work on exactly one bead unless I say otherwise. When done, stop and show me the keyword menu for next action.
+```
+
+---
+
+## next
+
+Move to next bead.
+
+```
+Reread AGENTS.md so it's still fresh. Use bv --robot-next (or bd ready --json) to find the most impactful bead to work on next, then start on it. Mark beads appropriately. Pick the next bead you can actually do and start coding. When you finish this bead, stop and show me the keyword menu.
+```
+
+---
+
+## self-review
+
+Self-review after bead completion.
+
+```
+Carefully read over all of the new code you just wrote and existing code you just modified with "fresh eyes." Look for obvious bugs, errors, problems, issues, confusion. Carefully fix anything you uncover.
+```
+
+---
+
+## commit
+
+Commit changes.
+
+```
+Based on your knowledge of the project, commit all changed files in a series of logically connected groupings with detailed commit messages for each, then push. Take your time. Don't edit the code. Don't commit obviously ephemeral files.
+```
+
+---
+
+## cross-review
+
+Cross-agent / code review.
+
+```
+Turn your attention to reviewing the code written by your fellow agents (or in prior sessions) and check for issues, bugs, errors, problems, inefficiencies, security problems, reliability issues. Diagnose root causes and fix or revise if necessary. Don't restrict yourself to the latest commits; cast a wider net. Use first-principles analysis.
+```
+
+---
+
+## explore
+
+Random code exploration.
+
+```
+Randomly explore code files in this project. Choose files to deeply investigate and trace their functionality and execution flows through related code. Once you understand the purpose in the larger context, do a careful, methodical check with "fresh eyes" for bugs, problems, errors, silly mistakes, and correct them. Ensure any code you write or revise conforms to the rules in AGENTS.md.
+```
+
+---
+
+## post-compact
+
+After context compaction.
+
+```
+Reread AGENTS.md so it's still fresh in your mind.
+```
+
+---
+
+## test-coverage
+
+Add test coverage.
+
+```
+Do we have full unit test coverage without mocks/fakes? Complete e2e integration test scripts with detailed logging? If not, create a comprehensive set of beads for all of this with tasks, subtasks, and dependency structure, with detailed comments.
+```
+
+---
+
+## ui-scrutiny
+
+UI/UX scrutiny.
+
+```
+Scrutinize every aspect of the application workflow and implementation. Look for things that seem sub-optimal or wrong, that could obviously be improved for user-friendliness and intuitiveness. Identify where UI/UX could be more polished and premium (Stripe-level).
+```
+
+---
+
+## ui-deep
+
+Deep UI/UX enhancement.
+
+```
+Consider desktop and mobile UI/UX separately. Hyper-optimize for both. Look for world-class visual appeal, polish, and slickness that follows UI/UX best practices (e.g. Stripe). Make it stunning and consistent in every way.
+```

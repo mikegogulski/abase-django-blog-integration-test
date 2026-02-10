@@ -1,0 +1,29 @@
+---
+description: Project constraints: deployment (Hetzner), no Docker), execution (YOLO mode), project-local MCP
+alwaysApply: true
+---
+
+# Project Context and Execution
+
+## Critical: MCP config is project-local only
+
+**All MCP configuration (e.g. `mcp.json`) must live in this repo**, under the project source tree. Use **`.cursor/mcp.json`** in this repository for every MCP server used by this project (e.g. Agent Mail, future tools). Do **not** use or modify account-level or global MCP config (e.g. under `~/.cursor/`) for this project. Other projects have their own `.cursor/mcp.json` with different MCP setups. When adding or documenting MCP servers, always refer to the project-local file.
+
+## Deployment
+
+- **Target:** Linux VPS or similar at **Hetzner**. No AWS or other cloud complexity.
+- **No Docker** unless strictly necessary (e.g. a dependency cannot be met otherwise). Prefer system packages, venv/pip, or process managers (systemd, supervisor) on the host.
+
+## Execution (YOLO mode)
+
+You may **automatically** execute:
+
+- **Any command that alters files within the project tree** (create, edit, delete, move under the repo root). Blowing up the repo is acceptable; the user can revert with git.
+- **A limited set of system commands via sudo** when needed for the project (e.g. `sudo mysql -e 'SHOW TABLES'` for DB inspection). Do not run broad destructive system commands (e.g. `rm -rf /`, `sudo apt remove`, reformatting disks, modifying WSL system files).
+
+**Hard boundary:** Do not run commands that could **break the WSL installation** or the host OS (e.g. uninstalling critical packages, modifying WSL config, kernel or filesystem operations outside the project). When in doubt, ask or restrict to the project directory and standard dev tools (git, python, node, etc.).
+
+## Summary
+
+- Deploy on Hetzner (Linux VPS); avoid Docker unless necessary.
+- Auto-execute file changes in the project and allowed sudo for specific tasks (e.g. mysql); do not risk WSL or host stability.

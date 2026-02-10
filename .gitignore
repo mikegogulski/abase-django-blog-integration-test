@@ -1,0 +1,5 @@
+# bv (beads viewer) local config and caches
+.bv/
+
+# Agent Mail mailbox (in-workspace STORAGE_ROOT)
+.agent_mail_mailbox/

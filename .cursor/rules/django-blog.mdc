@@ -1,0 +1,16 @@
+---
+description: Django blog project conventions and patterns
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# Django Blog Conventions
+
+- Use Django best practices: apps for bounded domains, fat models / thin views, or service layer where it clarifies intent.
+- Prefer class-based views (e.g. `ListView`, `DetailView`, `CreateView`) with clear mixins; use function-based views only when simpler.
+- Keep URL names namespaced (e.g. `blog:post_detail`). Put URL config in each app’s `urls.py` and include in project `urls.py`.
+- Use migrations for all schema changes. No raw SQL for schema in normal development.
+- Templates: one directory per app (e.g. `blog/templates/blog/`). Use template inheritance and blocks; avoid large monolithic templates.
+- Static files: app-level `static/<app>/` for app-specific assets; project-level for shared assets.
+- Security: use `@login_required` or `LoginRequiredMixin` for authenticated views; avoid exposing raw IDs in URLs when a slug or UUID is safer.
+- Testing: pytest-django or Django test runner; at least one test per view or critical path. Prefer factories (e.g. factory_boy) over raw ORM in tests.

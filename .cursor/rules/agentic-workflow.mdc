@@ -1,0 +1,42 @@
+---
+description: Beads-based agentic workflow; session start, task claim, and discovered work
+alwaysApply: true
+---
+
+# Agentic Workflow (Beads)
+
+This project uses **Beads** as external working memory so agents keep continuity across sessions and hand off work reliably.
+
+## Session discipline
+
+1. **On session start**  
+   Run `bd ready --json` (or `bd ready` if no CLI JSON). Use the result to choose the next unblocked task. Do not rely only on chat context or markdown plans.
+
+2. **Before coding**  
+   Claim the task: `bd update --id <id> --status in_progress --assignee agent/cursor` (or similar). Then implement.
+
+3. **When you discover new work**  
+   Create and link it: `bd new --title "..." --discovered-from <current-id>` and, if there is a dependency, `bd link --edge blocked_by --src <current> --dst <new-id>`.
+
+4. **When done**  
+   `bd update --id <id> --status done`. If you discovered follow-on work, ensure it is created and linked before marking done.
+
+5. **Bounded continuation (safety)**  
+   **Default: work on one bead per run.** After marking a bead done, stop and report unless the user explicitly asked for more (e.g. "work through the backlog," "do up to 3 beads," or replied with the **next** keyword). Do not run unboundedly. If the user's goal is vague (e.g. "build the blog"), ask: "Work on one bead, or multiple? If multiple, how many?" then proceed within that bound.
+
+6. **When you need input: show the keyword menu**  
+   When you have completed the allowed work or need the user to choose the next phase, output the list of valid keywords and wait. Example: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] — reply with a keyword." If the user replies with only a keyword, treat it as the corresponding prompt (see docs/AGENT-PROMPTS-BY-KEYWORD.md). If you use BV, never run bare `bv` (interactive TUI); always use `--robot-*` flags.
+
+7. **Continuation only when explicitly allowed**  
+   After a bead is done, continue to the next bead **only if** the user previously said to work on multiple beads or replied with **next**. Otherwise stop and show the keyword menu.
+
+## Conventions
+
+- Prefer **short, stable prompts**; the plan lives in Beads, not in the conversation.
+- Use **discovered_from** whenever work is found while doing another task.
+- Use **blocks / blocked_by** for ordering constraints so the ready set stays correct.
+- If Beads is not yet set up: run `bd quickstart` once, then follow the steps above.
+
+## Handoffs (swarms)
+
+When multiple agents or sessions share this repo: each works on a branch; commits include code and Beads changes. The next agent runs `bd ready --json` and continues. Use `assignee` to track who is working what; consider a TTL for `in_progress` to revert stale claims.
