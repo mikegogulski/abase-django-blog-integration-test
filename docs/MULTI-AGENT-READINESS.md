@@ -13,7 +13,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 - **CLI:** `./bin/bd` (or put `workflow/bin` on PATH). **Data:** `workflow/.beads/` (SQLite, prefix `workflow-`).
 - **Docs and rules** assume Beads: `bd ready --json`, `bd new`, `bd update`, `bd link`, `discovered_from`, `assignee`.
 - **AGENTS.md** and **.cursor/rules/agentic-workflow.mdc** describe the loop: get ready work → claim → work → discover → close; bounded runs (default one bead); keyword menu when input is needed.
-- **docs/WORKFLOW.md** explains the model; **docs/AGENT-SWARM-EVALUATION.md** explains Beads + BV + Agent Mail + NTM and when to add them.
+- **.cursor/rules/workflow.mdc** explains the model; **docs/AGENT-SWARM-EVALUATION.md** explains Beads + BV + Agent Mail + NTM and when to add them.
 - Seed issues created (e.g. “Django blog MVP”, “Project setup: Django, venv, settings”).
 
 ### BV (Beads Viewer) — installed
@@ -36,7 +36,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 ### Safety and input
 
 - **Bounded runs**: default one bead; continue only if user said “multiple” or used **next**.
-- **Keyword menu**: when input is needed, agent shows keywords; user replies with keyword (or uses Cursor Command/script). Full prompts in **docs/AGENT-PROMPTS-BY-KEYWORD.md**.
+- **Keyword menu**: when input is needed, agent shows keywords; user replies with keyword (or uses Cursor Command/script). Full prompts in **.cursor/rules/agent-prompts-by-keyword.mdc**.
 - **Project constraints**: Hetzner, no Docker unless necessary, YOLO (project-tree + limited sudo; no WSL-breaking).
 
 ### Other

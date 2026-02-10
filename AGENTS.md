@@ -2,7 +2,7 @@
 
 This repo is a **Django blog** project run with an **agentic workflow** so that AI agents (and humans) can plan, execute, and hand off work across sessions without losing context.
 
-**Critical:** MCP config is **project-local only**. All MCP servers are configured in **`.cursor/mcp.json`** in this repo. Do not use or change account-level MCP config for this project. See **docs/CONVENTIONS.md**.
+**Critical:** MCP config is **project-local only**. All MCP servers are configured in **`.cursor/mcp.json`** in this repo. Do not use or change account-level MCP config for this project. See **.cursor/rules/conventions.mdc**.
 
 ## Beads: external working memory
 
@@ -14,22 +14,24 @@ We use [Beads](https://debugg.ai/resources/beads-memory-ai-coding-agents-automat
 
 ### Every session
 
-1. **Get ready work**  
+1. **Handover context**  
+   Session continuity is in `.cursor/rules/handover-context.mdc` (loaded automatically). See `.cursor/rules/handover-management.mdc` for when to create or update it.
+2. **Get ready work**  
    Run `bd ready --json` (or `bd ready`) and pick the next unblocked task.
-2. **Claim before coding**  
-   `bd update --id <id> --status in_progress --assignee agent/cursor`
-3. **Record discovered work**  
+3. **Claim before coding**  
+   `bd update <id> --status in_progress --assignee agent/cursor`
+4. **Record discovered work**  
    When you find new tasks while working:  
    `bd new --title "..." --discovered-from <current-id>`  
    Link dependencies with `bd link --edge blocked_by --src <current> --dst <new-id>`.
-4. **Close when done**  
-   `bd update --id <id> --status done`
+5. **Close when done**  
+   `bd update <id> --status done`
 
-5. **Bounded runs (safety)**  
+6. **Bounded runs (safety)**  
    **Default: one bead per run.** After closing a bead, stop and report unless the user explicitly asked for more (e.g. "work through the backlog," "do 3 beads," or the **next** keyword). Do not run forever. If the goal is vague, ask: "One bead or multiple? How many?" then stay within that.
 
-6. **When you need input: show the keyword menu**  
-   When you need the user to choose the next action, output: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] — reply with a keyword." If the user replies with only a keyword, treat it as the prompt in docs/AGENT-PROMPTS-BY-KEYWORD.md. If using BV, always use `--robot-*` flags; never run `bv` alone (TUI blocks).
+7. **When you need input: show the keyword menu**  
+   When you need the user to choose the next action, output: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] — reply with a keyword." If the user replies with only a keyword, treat it as the prompt in .cursor/rules/agent-prompts-by-keyword.mdc. If using BV, always use `--robot-*` flags; never run `bv` alone (TUI blocks).
 
 You may invoke `bd` (and BV when available) and interpret their JSON output. Prefer querying the plan (Beads) over carrying long markdown plans in chat.
 
@@ -42,7 +44,7 @@ You may invoke `bd` (and BV when available) and interpret their JSON output. Pre
 
 If multiple agents or Cursor sessions work in this repo, they share the same Beads store. Each session: pull latest, run `bd ready --json`, claim a task, work, then commit code + Beads changes. No need to paste plans between sessions—the graph is the plan.
 
-For more on the workflow model and concepts, see **docs/WORKFLOW.md**. For safety (bounded runs, default one bead) and the keyword menu for input, see **docs/AGENTIC-SAFETY-AND-INPUT.md** and **docs/AGENT-PROMPTS-BY-KEYWORD.md**. For swarm evaluation and minimal copy-pasting, see **docs/AGENT-SWARM-EVALUATION.md**. For what is in place vs missing to use **multiple agents, Agent Mail, Beads, and BV**, see **docs/MULTI-AGENT-READINESS.md**.
+For more on the workflow model and concepts, see **.cursor/rules/workflow.mdc**. For safety (bounded runs, default one bead) and the keyword menu, see **.cursor/rules/agentic-safety-and-input.mdc** and **.cursor/rules/agent-prompts-by-keyword.mdc**. For swarm evaluation and minimal copy-pasting, see **docs/AGENT-SWARM-EVALUATION.md**. For what is in place vs missing to use **multiple agents, Agent Mail, Beads, and BV**, see **docs/MULTI-AGENT-READINESS.md**.
 
 ## Landing the Plane (Session Completion)
 
@@ -62,7 +64,7 @@ For more on the workflow model and concepts, see **docs/WORKFLOW.md**. For safet
    ```
 5. **Clean up** - Clear stashes, prune remote branches
 6. **Verify** - All changes committed AND pushed
-7. **Hand off** - Provide context for next session
+7. **Hand off** - Provide context for next session: create or update `.cursor/rules/handover-context.mdc` (see `.cursor/rules/handover-management.mdc`) so the next session has continuity. Optionally say "Create handover" or "Prepare session handover" to trigger the handover flow.
 
 **CRITICAL RULES:**
 - Work is NOT complete until `git push` succeeds

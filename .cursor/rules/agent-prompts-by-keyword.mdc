@@ -1,6 +1,12 @@
+---
+description: Full prompt text per keyword for keyword menu (always apply)
+globs:
+alwaysApply: true
+---
+
 # Agent Prompts by Keyword
 
-Use these when the agent shows the keyword menu (see **AGENTIC-SAFETY-AND-INPUT.md**). You can type the keyword in chat, or use a Cursor Command / script that sends the text below.
+Use these when the agent shows the keyword menu (see **agentic-safety-and-input.mdc**). You can type the keyword in chat, or use a Cursor Command / script that sends the text below.
 
 ---
 

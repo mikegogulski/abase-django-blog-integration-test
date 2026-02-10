@@ -1,0 +1,44 @@
+---
+description: Project conventions - MCP, handover, Beads, edit approval (always apply)
+globs:
+alwaysApply: true
+---
+
+# Project Conventions (Critical)
+
+Conventions that must be followed for this project. Agents and humans should treat these as non-negotiable.
+
+---
+
+## MCP config is project-local only
+
+**All MCP configuration (e.g. `mcp.json`) must live in this repository**, inside the project source tree.
+
+- **Location:** **`.cursor/mcp.json`** at the project root (i.e. this repo's `.cursor/` directory).
+- **Do not** use or modify MCP config under your user account (e.g. `~/.cursor/` or any global Cursor config) for this project.
+- Other projects have their own `.cursor/mcp.json` with different MCP server setups. This project's MCP setup is defined only in this repo.
+- When adding or documenting an MCP server (e.g. Agent Mail), always add it to **`.cursor/mcp.json`** here and document that in this project's docs.
+
+This is also enforced in **`.cursor/rules/project-context.mdc`** (always-applied rule).
+
+---
+
+## Session continuity (handover)
+
+Use **`.cursor/rules/handover-context.mdc`** for session handovers so new AI sessions get continuity context (it is always applied). How and when to create or update it is in **`.cursor/rules/handover-management.mdc`**. When you change documentation or tool versions that affect session context (e.g. key paths, stack docs), update `handover-context.mdc` so the next session stays accurate. Recording errors and their solutions (e.g. in a `docs/SOLUTIONS.md`) also helps handover and future reference.
+
+---
+
+## Beads (bd): use direct DB to avoid timeouts
+
+**In this repo, Beads is configured with `no-daemon: true` in `.beads/config.yaml`.** All `bd` commands use direct SQLite access and do not start or use the Beads daemon.
+
+**Why:** Previously this repo's Beads database was a "legacy" DB (pre-0.17.5, no repository fingerprint), so the daemon refused to start and every `bd` call waited on that failure before falling back to direct DB (~5+ seconds), causing **timeouts** when Cursor or scripts ran `bd`. We have since run **`bd migrate --update-repo-id`** so the DB is no longer legacy (repository ID is set). We still keep `no-daemon: true` so that agent- and script-invoked `bd` commands stay fast and do not depend on daemon startup.
+
+**If you need the daemon** (e.g. for daemon-backed sync or watch): set `no-daemon: false` in `.beads/config.yaml` or override with `BD_NO_DAEMON=0 bd daemon --start`. For normal use and for agents, leave `no-daemon: true`.
+
+---
+
+## Agent edit approval (permit all edits in tree)
+
+To have the agent apply edits inside this project **without asking for approval** each time (e.g. for `.cursor/mcp.json`), see **docs/CURSOR-EDIT-PERMISSIONS.md**. You can use Cursor Settings (Agents then Auto-Run: turn OFF External-File Protection and Dotfile Protection) or rely on this project's **`.vscode/settings.json`** if your Cursor version supports those workspace overrides.

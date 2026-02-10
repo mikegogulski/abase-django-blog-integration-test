@@ -1,0 +1,69 @@
+---
+description: Session handover context - auto-loaded for continuity (always apply)
+globs:
+alwaysApply: true
+---
+
+# Session Handover Document
+
+**Generated:** [YYYY-MM-DD HH:MM:SS UTC — update when creating handover]
+**Purpose:** Provide continuity context for new AI assistant sessions. This rule is loaded automatically (alwaysApply) so the agent has project and recent-work context without reading a separate file.
+
+## Project Overview
+
+This repo is an **agentic workflow template**: Beads for issue/memory, Agent Mail MCP for coordination, Cursor rules for conventions. It can be copied as the basis for another project (e.g. Django blog). Work is tracked in Beads; agents run `bd ready`, claim tasks, and close beads. Key docs and scripts live under `docs/`, `scripts/`, and `bin/`.
+
+## Key Locations
+
+| Location | Purpose |
+|----------|---------|
+| `AGENTS.md` | Top-level agent instructions (Beads loop, project goal) |
+| `TODO.md` | Follow-up tasks and evaluations (bjn analysis, skills.sh, etc.) |
+| `docs/` | Project docs (BJN-CURSOR-ANALYSIS.md, MULTI-AGENT-READINESS.md, etc.); conventions and workflow are in .cursor/rules/ |
+| `.cursor/rules/` | Cursor rules (agentic-workflow, project-context, django-blog, Agent Mail, handover-context, handover-management) |
+| `.cursor/mcp.json` | MCP config (project-local only; Agent Mail server) |
+| `.beads/` | Beads DB and config; run `./bin/bd` from repo root |
+| `scripts/` | `ensure_agent_mail.sh`, `test_agent_mail.sh` (run from repo root) |
+| `bin/` | `bd` binary (Beads CLI) |
+| `mcp_agent_mail/` | Agent Mail MCP server (submodule); venv, .env |
+
+## URLs
+
+- **Live site / app:** [Add when this template is used for a deployed project]
+- **Remote server:** [SSH target and code path if applicable]
+
+## Work Completed to Date
+
+- Beads: migrated from legacy DB (`bd migrate --update-repo-id`); `no-daemon: true` in config to avoid timeouts when agents run `bd`.
+- bjn/.cursor analysis: all 33 files classified; recommendations in `docs/BJN-CURSOR-ANALYSIS.md`.
+- CONVENTIONS: MCP project-local only; Beads no-daemon and handover docs.
+- Agent Mail: scripts and MCP wired; STORAGE_ROOT and portability noted in docs.
+- Reorganize analysis: `docs/REORGANIZE-MINIMAL-TOP-LEVEL-ANALYSIS.md` (hard constraints: .cursor, .vscode, .beads, .gitignore, .gitmodules, AGENTS.md).
+
+## Environment & Configuration Notes
+
+- **Beads:** Use `./bin/bd` from repo root. Config has `no-daemon: true`; DB is non-legacy (repo ID set). See .cursor/rules/conventions.mdc (Beads section).
+- **Agent Mail:** Server runs from `mcp_agent_mail/`; start with `scripts/ensure_agent_mail.sh`. MCP config in `.cursor/mcp.json` only.
+- **Scripts:** Invoke from repo root (e.g. `./scripts/ensure_agent_mail.sh`).
+- After git pull/merge: run `./bin/bd` as needed; no Django in this template repo. When this tree is copied to a Django project, run `uv run manage.py migrate` (or equivalent) after pull as usual.
+
+## Last 3 Tasks
+
+### Task 1: [Most recent task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files or areas touched]
+
+### Task 2: [Previous task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files or areas touched]
+
+### Task 3: [Earlier task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files or areas touched]
+
+## Pending Items
+
+- [Optional: open TODO items, next steps, or deferred work — e.g. TODO.md tasks, AGENTS.md genericization, Django blog when resumed]

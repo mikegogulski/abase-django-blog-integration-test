@@ -51,10 +51,23 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 
 ---
 
-## 5. Clarifications (optional)
+## 5. Make AGENTS.md generic for template use (deferred)
+
+**Task:** This repo is intended as a **template project** that can be copied as the basis for another. AGENTS.md must not be Django-blog-specific. Abstract the following into templates that can be included by reference:
+
+- **Repo description** (first paragraph of AGENTS.md): e.g. "This repo is a **{{PROJECT_TYPE}}** project run with an **agentic workflow**…" so a new project can plug in its own type (e.g. "Django blog", "API service", "static site").
+- **First bullet of Project goal** ("Deliverable"): e.g. a template or placeholder for the concrete deliverable (e.g. "a simple Django blog (posts, optional auth…)" vs "a REST API with …").
+
+**Deliverable:** AGENTS.md (or a stub at root) references template/placeholder content (e.g. from `docs/templates/` or a single `AGENTS-PROJECT-SPECIFIC.md` that projects copy and fill in), so the tree is copy-paste ready and new projects replace only the project-specific bits.
+
+**Status:** Deferred. To be done when we prioritize template portability (e.g. after bjn/.cursor analysis or when copying this tree to a new repo).
+
+---
+
+## 6. Clarifications (optional)
 
 - **Allowed sudo commands:** The project-context rule allows “a few” sudo commands (e.g. `sudo mysql -e '...'`). If you want a strict allow-list, we can add a todo to define and document the full list.
-- **Keyword→Cursor Command setup:** If you want Cursor Commands created for each keyword (start, next, self-review, etc.), that can be a short doc or checklist in the repo; no code change required beyond the prompt text already in `docs/AGENT-PROMPTS-BY-KEYWORD.md`.
+- **Keyword→Cursor Command setup:** If you want Cursor Commands created for each keyword (start, next, self-review, etc.), that can be a short doc or checklist in the repo; no code change required beyond the prompt text already in `.cursor/rules/agent-prompts-by-keyword.mdc`.
 
 ---
 
