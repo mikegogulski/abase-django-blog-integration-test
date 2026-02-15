@@ -28,7 +28,7 @@ Per-file classification: **generic** (applicable to any project) vs **BJN-specif
 ## 4. handover.mdc → handover-context.mdc
 
 - **Classification:** **BJN-specific.** Project overview (Butlerian Jihad News, Django/Wagtail, bjn/, bjnconfig/, deploy/), key locations, URLs (butlerianjihad.now, ssh bjn-sabrina), tasks (Task 15, admin split), environment (PostgreSQL, qcluster, uv run).
-- **Recommendation:** **No.** Content is entirely BJN project context. For workflow/Django blog, use a *template* handover (structure: overview, locations, last tasks, pending) and fill with this project’s data. In workflow we use `.cursor/rules/handover-context.mdc` (always applied) with a template handover structure.
+- **Recommendation:** **No.** Content is entirely BJN project context. For workflow/Django blog, use a *template* handover (structure: overview, locations, last tasks, pending) and fill with this project’s data. In workflow we use `.cursor/rules/abase-handover-context.mdc` (always applied) with a template handover structure.
 
 ---
 
@@ -171,7 +171,7 @@ Per-file classification: **generic** (applicable to any project) vs **BJN-specif
 
 ## 24. rules/handover-management.mdc
 
-- **Classification:** **Mostly generic** with BJN template. Handover flow: handover-context.mdc is in rules (always applied); archive to handover-archive/, generate new with structure. Key Locations table and Environment notes use bjn/, bjnconfig/, qcluster.
+- **Classification:** **Mostly generic** with BJN template. Handover flow: abase-handover-context.mdc is in rules (always applied); archive to handover-archive/, generate new with structure. Key Locations table and Environment notes use bjn/, bjnconfig/, qcluster.
 - **Recommendation:** **Yes (adapt).** Keep handover process; replace Key Locations and env notes with project-agnostic template.
 
 ---

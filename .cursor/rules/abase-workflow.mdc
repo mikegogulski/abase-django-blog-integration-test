@@ -48,7 +48,7 @@ Cross-repo is possible (e.g. `repo://org/name#bd-123`) but not required for this
 
 | Asset | Purpose |
 |-------|--------|
-| **`.cursor/rules/handover-context.mdc`** | Session handover context (always applied) for continuity; see handover-management.mdc for how/when to create or update. |
+| **`.cursor/rules/abase-handover-context.mdc`** | Session handover context (always applied) for continuity; see abase-handover-management.mdc for how/when to create or update. |
 | **`.cursor/rules/agentic-workflow.mdc`** | Always-applied rule: Beads session discipline, claim/discover/close, handoffs. |
 | **`.cursor/rules/django-blog.mdc`** | Django conventions (app structure, URLs, views, templates, tests); applied when editing `**/*.py`. |
 | **`AGENTS.md`** | Top-level agent instructions: Beads one-time setup, four-step session protocol, project goal, swarms. |
