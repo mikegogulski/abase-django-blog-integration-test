@@ -10,9 +10,9 @@ Notes from getting Agent Mail and its MCP server running in this project.
 
 ## Agent Mail server
 
-- **Start before use:** Run **`./abase-scripts/ensure_agent_mail.sh`** from the repo root before using any Agent Mail MCP tools. The server may not be running after a Cursor or machine restart.
-- **Verify:** Run **`./abase-scripts/test_agent_mail.sh`** after starting or when something fails. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
-- **Venv:** The server runs with **Python 3.12** in `mcp_agent_mail/.abase-venv` (isolated from your project's `.venv`). After a fresh submodule clone or `git submodule update`, recreate: `cd mcp_agent_mail && uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`. Python 3.14 caused pydantic errors. **Existing setups:** `abase-scripts/ensure_agent_mail.sh` prefers `.abase-venv` but falls back to `.venv` if present.
+- **Start before use:** Run **`./.abase/scripts/ensure_agent_mail.sh`** from the repo root before using any Agent Mail MCP tools. The server may not be running after a Cursor or machine restart.
+- **Verify:** Run **`./.abase/scripts/test_agent_mail.sh`** after starting or when something fails. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
+- **Venv:** The server runs with **Python 3.12** in `mcp_agent_mail/.abase-venv` (isolated from your project's `.venv`). After a fresh submodule clone or `git submodule update`, recreate: `cd mcp_agent_mail && uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`. Python 3.14 caused pydantic errors. **Existing setups:** `.abase/scripts/ensure_agent_mail.sh` prefers `.abase-venv` but falls back to `.venv` if present.
 
 ## Mailbox (STORAGE_ROOT)
 
@@ -35,7 +35,7 @@ Notes from getting Agent Mail and its MCP server running in this project.
 
 ## Quick checklist
 
-1. Start server: `./abase-scripts/ensure_agent_mail.sh`
-2. Test: `./abase-scripts/test_agent_mail.sh`
+1. Start server: `./.abase/scripts/ensure_agent_mail.sh`
+2. Test: `./.abase/scripts/test_agent_mail.sh`
 3. In Cursor: ensure the correct Agent Mail MCP server is enabled and the broken one (if any) is disabled.
 4. Call `health_check` (or `ensure_project`) to confirm MCP works.

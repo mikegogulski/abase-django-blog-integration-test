@@ -52,7 +52,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 |-------|--------|------|
 | **Beads (`bd`)** | Done | `./bin/bd`, `.beads/` initialized, seed issues created. |
 | **BV** | Done | `~/.local/bin/bv`; use `bv --robot-next` / `bv --robot-triage`. |
-| **Agent Mail (MCP)** | Done | `mcp_agent_mail/` in repo; venv `.abase-venv` (Python 3.12); start with `./abase-scripts/ensure_agent_mail.sh` or `mcp_agent_mail/scripts/run_server_with_token.sh`. |
+| **Agent Mail (MCP)** | Done | `mcp_agent_mail/` in repo; venv `.abase-venv` (Python 3.12); start with `./.abase/scripts/ensure_agent_mail.sh` or `mcp_agent_mail/scripts/run_server_with_token.sh`. |
 | **Cursor MCP config** | Project-local | `.cursor/mcp.json` has Agent Mail URL and bearer token. Enable the working MCP server; disable any broken duplicate. See **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md**. |
 | **Multi-agent rules** | Done | `.cursor/rules/multi-agent-agent-mail.mdc` (register, reserve, announce, inbox, release). |
 | **NTM (optional)** | Deferred | Only for scripted prompt injection into tmux; optional for multiple Cursor windows + Beads + Agent Mail. |
@@ -64,7 +64,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 - **Beads:** `./bin/bd` (or `workflow/bin` on PATH); data in `.beads/`.
 - **BV:** `bv --robot-next` / `bv --robot-triage` (from `~/.local/bin`).
-- **Agent Mail:** Run `./abase-scripts/ensure_agent_mail.sh` to start the server if needed; run `./abase-scripts/test_agent_mail.sh` after starting or when there is trouble. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
+- **Agent Mail:** Run `./.abase/scripts/ensure_agent_mail.sh` to start the server if needed; run `./.abase/scripts/test_agent_mail.sh` after starting or when there is trouble. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
 - **4 subagents:** Use **`STORAGE_ROOT`** in the workspace (e.g. `.agent_mail_mailbox`) so the server can write; see **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md**. Then: `ensure_project(human_key="/home/syadasti/workflow")`, then `create_agent_identity(project_key="...", program="cursor", model="agent")` per agent (omit `name` for auto-generated names). If MCP tools are unavailable, ensure the correct Agent Mail MCP server is enabled and any broken duplicate is disabled (see learnings doc).
 
 ---

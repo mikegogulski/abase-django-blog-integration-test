@@ -1,0 +1,58 @@
+# abase Framework Tests
+
+P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.md`.
+
+## Structure
+
+- `mock_health_server.py` — HTTP server returning 200 on `/health/readiness` (for script tests)
+- `test_test_agent_mail.sh` — Tests `.abase/scripts/test_agent_mail.sh` against mock server
+- `test_ensure_agent_mail.sh` — Tests `.abase/scripts/ensure_agent_mail.sh` (mocked dependencies)
+- `run_tests.sh` — Run all tests
+
+## Usage
+
+From repo root:
+
+```bash
+./.abase/tests/run_tests.sh
+```
+
+Requires: `bash`, `curl`, `python3` (for mock server).
+
+---
+
+## Test Requirement Classes and Recommended Tools
+
+Each class of testable requirement maps to a recommended tool. Full analysis: `docs/abase/TEST-REQUIREMENTS-VS-FRAMEWORKS.md`.
+
+### Tools (links and summaries)
+
+| Tool | Link | Summary |
+|------|------|---------|
+| **bats-core** | [github.com/bats-core/bats-core](https://github.com/bats-core/bats-core) | Bash Automated Testing System. TAP-compliant; `@test` syntax; `run` captures output; `setup`/`teardown`; native bash/CLI testing. |
+| **mcp-eval** | [mcp-eval.ai](https://mcp-eval.ai/) | MCP server and agent testing. Connects agent to MCP server; asserts tool calls, sequences, params; pytest/decorator/dataset styles; OpenTelemetry. |
+| **Scenario** | [langwatch.ai/scenario](https://langwatch.ai/scenario/) | Agent simulation framework. Multi-turn, policy-aware scenarios; user simulation; framework-agnostic; assert output at any turn. |
+
+### Per-class recommendation
+
+**Model** (Anthropic/OpenAI): Only for mcp-eval and Scenario tests (agent is SUT). **Claude 3.5 Sonnet** recommended for reliability (MCP tool use, instruction following, coding workflow). Fallback: GPT-4o.
+
+| Class | Best tool | Model | What to test |
+|-------|-----------|-------|--------------|
+| **A. Scripts** | bats-core | — | test_agent_mail exit codes; ensure_agent_mail retry; env vars |
+| **B. Beads CLI** | bats-core | — | br create, update, list, ready, link, close; JSONL schema |
+| **C. Agent Mail HTTP** | bats-core | — | GET /health/readiness 200 (mock server) |
+| **D. Agent Mail MCP** | mcp-eval | Claude 3.5 Sonnet | MCP tools: register, reserve, announce, inbox, release |
+| **E. Rules presence** | bats-core | — | abase-*.mdc exist; cross-refs |
+| **F. Skills presence** | bats-core | — | SKILL.md; symlinks |
+| **G. Handover structure** | bats-core | — | Section headers; archive format |
+| **H. Config** | bats-core | — | no-daemon; mcp.json |
+| **I. Agent session** | Scenario | Claude 3.5 Sonnet | bd ready → claim → work → close |
+| **J. Agent bounded** | Scenario | Claude 3.5 Sonnet | One bead default; stop unless "next" |
+| **K. Keyword menu** | Scenario | Claude 3.5 Sonnet | Output contains "Next action? [start] [next] ..." |
+| **L. Agent Mail behavior** | Scenario | Claude 3.5 Sonnet | Agent runs ensure/test when needed |
+| **M. Multi-agent MCP** | mcp-eval | Claude 3.5 Sonnet | Reserve, announce, inbox tool usage |
+| **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, bd sync, git push; handover |
+| **O. Keyword→prompt** | bats-core | — | Each keyword has prompt in mdc |
+
+**P0 scope (current):** A, C (partial). **Planned:** B, E, F, G, H, O (bats-core). **Later:** D, M (mcp-eval); I, J, K, L, N (Scenario).

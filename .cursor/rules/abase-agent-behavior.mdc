@@ -11,7 +11,7 @@ alwaysApply: true
 
 1. **Act**: Run the commands, apply the fix, start the server, run the script. Do not say "you should run X" or "then start Agent Mail" as a first response—do it.
 2. **When something fails**: Fix it yourself. Install missing deps, retry with `required_permissions` (e.g. `full_network`), try a different invocation or tool. **Never** respond by asking the user to run something; only involve the user when you have tried alternatives and are genuinely stuck (credentials, physical access, or unresolved failure after troubleshooting).
-3. **Start services when needed**: If a workflow needs Agent Mail (or another local service), start it yourself (e.g. run `abase-scripts/ensure_agent_mail.sh`) instead of telling the user to start it.
+3. **Start services when needed**: If a workflow needs Agent Mail (or another local service), start it yourself (e.g. run `./.abase/scripts/ensure_agent_mail.sh`) instead of telling the user to start it.
 4. **Troubleshoot on failure**: If something fails, analyze the error, try alternatives (different flags, paths, permissions, or tools), and retry.
 5. **Iterate up to 5 times**: When fixing a problem (e.g. a failing command, a broken test, or a service that won’t start), attempt to resolve it yourself. Try up to **5 distinct troubleshooting attempts** (e.g. retry with new permissions, then install a dependency, then try a different command, then check config, then report). Only after that should you involve the user with a clear summary of what failed, what you tried, and what they might do.
 6. **Tell the user only when stuck**: If you are unable to find a solution after troubleshooting (and up to 5 attempts where applicable), then—and only then—report what failed, what you tried, and what the user could do (e.g. run a command manually, provide credentials, or make a decision).
@@ -24,5 +24,5 @@ When the user’s **last imperative** in a prompt is to **explore**, **explain**
 
 ## Agent Mail: ensure running and test when needed
 
-- **When you need Agent Mail** (e.g. before using MCP Agent Mail tools or multi-agent workflows): run `abase-scripts/ensure_agent_mail.sh` from the repo root so the server is running. Do not ask the user to start it.
-- **When Agent Mail is started or has trouble**: run `abase-scripts/test_agent_mail.sh` to verify it is running properly. If the test fails, troubleshoot (e.g. restart, check port, check venv) and re-run the test; see "Iterate up to 5 times" above. Script usage is documented in **docs/abase/AGENT-MAIL-SCRIPTS.md**.
+- **When you need Agent Mail** (e.g. before using MCP Agent Mail tools or multi-agent workflows): run `./.abase/scripts/ensure_agent_mail.sh` from the repo root so the server is running. Do not ask the user to start it.
+- **When Agent Mail is started or has trouble**: run `./.abase/scripts/test_agent_mail.sh` to verify it is running properly. If the test fails, troubleshoot (e.g. restart, check port, check venv) and re-run the test; see "Iterate up to 5 times" above. Script usage is documented in **docs/abase/AGENT-MAIL-SCRIPTS.md**.

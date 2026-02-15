@@ -53,18 +53,31 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 
 ## 5. Make AGENTS.md generic for template use
 
-**Task:** This repo is intended as a **template project** that can be copied as the basis for another. AGENTS.md must not be Django-blog-specific. Abstract the following into templates that can be included by reference:
+**Task:** This repo is intended as a **template project** that can be copied as the basis for another. AGENTS.md must not be Django-blog-specific.
 
-- **Repo description** (first paragraph of AGENTS.md): e.g. "This repo is a **{{PROJECT_TYPE}}** project run with an **agentic workflow**…" so a new project can plug in its own type (e.g. "Django blog", "API service", "static site").
-- **First bullet of Project goal** ("Deliverable"): e.g. a template or placeholder for the concrete deliverable (e.g. "a simple Django blog (posts, optional auth…)" vs "a REST API with …").
-
-**Deliverable:** AGENTS.md (or a stub at root) references template/placeholder content (e.g. from `docs/abase-templates/` or a single `AGENTS-PROJECT-SPECIFIC.md` that projects copy and fill in), so the tree is copy-paste ready and new projects replace only the project-specific bits.
-
-**Status:** Done. AGENTS.md uses `{{PROJECT_TYPE}}` and `{{DELIVERABLE}}` placeholders; `docs/abase-templates/AGENTS-PROJECT-EXAMPLES.md` provides examples (Django blog, REST API, static site, full-stack).
+**Status:** **Closed.** AGENTS.md is already generic: describes "agentic workflow template," deliverable as "the project you build with this template (e.g. a simple Django blog, API, static site)"; `docs/abase-templates/AGENTS-PROJECT-EXAMPLES.md` provides examples. No further work needed.
 
 ---
 
-## 6. Clarifications (optional)
+## 6. Evaluate all Dicklesworthstone skills on skills.sh
+
+**Task:** Evaluate every skill published by Dicklesworthstone on [skills.sh](https://skills.sh/).
+
+**Deliverable:** For each skill: classify as generic vs project-specific; recommend include in this project (yes/no) with brief reason; note any paid/provider dependencies. Output similar to **docs/abase/SKILLS-SH-TOP30-EVALUATION.md**.
+
+**Status:** Bead **workflow-126** created (deferred). Run `br undefer workflow-126` when ready.
+
+---
+
+## 7. Testing strategy for abase framework
+
+**Task:** Research prior work on testing agentic/AI frameworks; propose and implement a testing strategy for abase.
+
+**Status:** Bead **workflow-3l8** completed. Report: **docs/abase/ABASE-TESTING-STRATEGY.md**. Epic **workflow-vho** with subtasks: P0 script tests (workflow-vho.1), P0 Beads CLI (workflow-vho.2), P1 rules lint (workflow-vho.4), P2 Agent Mail integration (workflow-vho.3). **P0 script tests implemented** in `.abase/tests/` — run `./.abase/tests/run_tests.sh`. Next: P0 Beads tests, P1 rules lint.
+
+---
+
+## 8. Clarifications (optional)
 
 - **Allowed sudo commands:** The abase-project-context rule allows “a few” sudo commands (e.g. `sudo mysql -e '...'`). If you want a strict allow-list, we can add a todo to define and document the full list.
 - **Keyword→Cursor Command setup:** If you want Cursor Commands created for each keyword (start, next, self-review, etc.), that can be a short doc or checklist in the repo; no code change required beyond the prompt text already in `.cursor/rules/abase-agent-prompts-by-keyword.mdc`.

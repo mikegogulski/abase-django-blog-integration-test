@@ -81,9 +81,9 @@ Add `--skip-beads` if you already have `bd` or `br`. **Windows (without WSL):** 
 
    **Config location by tool:** Cursor uses `.cursor/mcp.json` in the project root. Other MCP-enabled tools (Claude Desktop, Windsurf, etc.) use their own config paths—consult your tool's docs.
 
-4. **Start server:** From repo root, `./abase-scripts/ensure_agent_mail.sh`. Test with `./abase-scripts/test_agent_mail.sh`.
+4. **Start server:** From repo root, `./.abase/scripts/ensure_agent_mail.sh`. Test with `./.abase/scripts/test_agent_mail.sh`.
 
-**Windows (PowerShell, without WSL):** The curl-based installer and `abase-scripts/*.sh` require bash. Use manual setup:
+**Windows (PowerShell, without WSL):** The curl-based installer and `.abase/scripts/*.sh` require bash. Use manual setup:
 
 1. **Install uv** (PowerShell or WinGet): `powershell -ExecutionPolicy Bypass -c "irm https://astral.sh/uv/install.ps1 | iex"` — or `winget install -e --id astral-sh.uv`
 2. **Submodule and venv:** `git submodule update --init`, then `cd mcp_agent_mail`, `uv venv --python 3.12 .abase-venv`, `$env:UV_PROJECT_ENVIRONMENT=".abase-venv"; uv sync`
@@ -108,7 +108,7 @@ Add `--skip-bv` if you don't want BV.
 ### 5. Windows users
 
 - **Symlinks:** Skills symlinks can fail on Windows. See **README-WINDOWS.md** for mitigation.
-- **Bash-based installs:** The curl \| bash installer and `abase-scripts/*.sh` require bash (use WSL, Git Bash, or the Windows manual steps in §3).
+- **Bash-based installs:** The curl \| bash installer and `.abase/scripts/*.sh` require bash (use WSL, Git Bash, or the Windows manual steps in §3).
 
 ## Key Paths
 
@@ -123,9 +123,10 @@ Add `--skip-bv` if you don't want BV.
 | `docs/abase/` | Framework docs |
 | `docs/abase-templates/` | Template examples |
 | `mcp_agent_mail/` | Agent Mail submodule (venv: `.abase-venv`) |
-| `abase-scripts/` | Framework scripts (ensure/test Agent Mail) |
-| `abase-scripts/ensure_agent_mail.sh` | Start Agent Mail server |
-| `abase-scripts/test_agent_mail.sh` | Verify Agent Mail |
+| `.abase/scripts/` | Framework scripts (ensure/test Agent Mail) |
+| `.abase/scripts/ensure_agent_mail.sh` | Start Agent Mail server |
+| `.abase/scripts/test_agent_mail.sh` | Verify Agent Mail |
+| `.abase/tests/` | P0 tests (run `./.abase/tests/run_tests.sh`) |
 
 ## Updating This Document
 

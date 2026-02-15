@@ -27,7 +27,7 @@ Map each "stock" prompt to a short **keyword**. When the agent needs your input,
 
 Keywords: **next** (move to next bead), **self-review**, **commit**, **cross-review**, **explore**, **post-compact**, **test-coverage**, **ui-scrutiny**, **ui-deep**, **start** (initial marching orders). Full prompt text for each is in `.cursor/rules/agent-prompts-by-keyword.mdc`.
 
-When the agent needs your input, it outputs: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] - reply with a keyword." You type the keyword in chat or run the matching Cursor Command or script (e.g. `./abase-scripts/agent-prompt next`).
+When the agent needs your input, it outputs: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] - reply with a keyword." You type the keyword in chat or run the matching Cursor Command or script (e.g. `./.abase/scripts/agent-prompt next`).
 
 ## 3. Summary
 

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Ensure the Agent Mail server is running. If not, start it in the background.
 # Then run the test script to verify. Exits 0 if server is ready, non-zero after attempts.
-# Use: from repo root, ./abase-scripts/ensure_agent_mail.sh
+# Use: from repo root, ./.abase/scripts/ensure_agent_mail.sh
 # See docs/abase/AGENT-MAIL-SCRIPTS.md.
 
 set -euo pipefail
 
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
-TEST_SCRIPT="$REPO_ROOT/abase-scripts/test_agent_mail.sh"
+REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
+TEST_SCRIPT="$REPO_ROOT/.abase/scripts/test_agent_mail.sh"
 SERVER_DIR="$REPO_ROOT/mcp_agent_mail"
 RUN_SCRIPT="$SERVER_DIR/scripts/run_server_with_token.sh"
 MAX_ATTEMPTS=5

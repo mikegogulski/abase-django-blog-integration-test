@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Test that the Agent Mail HTTP server is running and ready.
 # Exit 0 if healthy, non-zero otherwise.
-# Use: from repo root, ./abase-scripts/test_agent_mail.sh
+# Use: from repo root, ./.abase/scripts/test_agent_mail.sh
 # See docs/abase/AGENT-MAIL-SCRIPTS.md.
 
 set -euo pipefail
