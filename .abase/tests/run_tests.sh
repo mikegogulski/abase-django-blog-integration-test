@@ -22,6 +22,12 @@ run_one() {
 echo "=== abase P0 tests ==="
 run_one "$REPO_ROOT/.abase/tests/test_test_agent_mail.sh" || true
 run_one "$REPO_ROOT/.abase/tests/test_ensure_agent_mail.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_beads_cli.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_rules_presence.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_skills_presence.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_handover_structure.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_config.sh" || true
+run_one "$REPO_ROOT/.abase/tests/test_keyword_prompts.sh" || true
 
 echo ""
 echo "=== Summary: $PASSED passed, $FAILED failed ==="

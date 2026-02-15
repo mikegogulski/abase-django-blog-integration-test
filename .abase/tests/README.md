@@ -5,8 +5,14 @@ P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.
 ## Structure
 
 - `mock_health_server.py` — HTTP server returning 200 on `/health/readiness` (for script tests)
-- `test_test_agent_mail.sh` — Tests `.abase/scripts/test_agent_mail.sh` against mock server
-- `test_ensure_agent_mail.sh` — Tests `.abase/scripts/ensure_agent_mail.sh` (mocked dependencies)
+- `test_test_agent_mail.sh` — Tests `.abase/scripts/test_agent_mail.sh` against mock server (A, C)
+- `test_ensure_agent_mail.sh` — Tests `.abase/scripts/ensure_agent_mail.sh` (mocked dependencies) (A)
+- `test_beads_cli.sh` — Tests br/bd create, list, ready (B)
+- `test_rules_presence.sh` — Tests abase-*.mdc exist, handover ref (E)
+- `test_skills_presence.sh` — Tests SKILL.md, symlinks (F)
+- `test_handover_structure.sh` — Tests handover sections, archive format (G)
+- `test_config.sh` — Tests no-daemon, mcp.json (H)
+- `test_keyword_prompts.sh` — Tests keyword→prompt mapping (O)
 - `run_tests.sh` — Run all tests
 
 ## Usage
@@ -55,4 +61,4 @@ Each class of testable requirement maps to a recommended tool. Full analysis: `d
 | **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, bd sync, git push; handover |
 | **O. Keyword→prompt** | bats-core | — | Each keyword has prompt in mdc |
 
-**P0 scope (current):** A, C (partial). **Planned:** B, E, F, G, H, O (bats-core). **Later:** D, M (mcp-eval); I, J, K, L, N (Scenario).
+**P0 scope (current):** A, B, C, E, F, G, H, O. **Later:** D, M (mcp-eval); I, J, K, L, N (Scenario).
