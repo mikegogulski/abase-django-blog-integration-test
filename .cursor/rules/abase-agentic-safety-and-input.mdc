@@ -1,0 +1,35 @@
+---
+description: Agentic safety (one bead default) and keyword menu for input (always apply)
+globs:
+alwaysApply: true
+---
+
+# Agentic Safety and Input (Keyword Menu)
+
+This rule defines safety boundaries for autonomous continuation and a keyword-to-prompt scheme so you don't have to copy-paste long prompts.
+
+## 1. Safety: No Unbounded Run Forever
+
+**Principle:** The agent must not start an unbounded run (e.g. "build the Django blog" and then run until stop or "done") unless you explicitly request it.
+
+### Rules the agent follows
+
+- **Default: one bead per run.** Unless you say otherwise at the start, work on **one** ready bead, then stop and report. Do not auto-continue to the next bead.
+- **Explicit continuation.** Only continue to more beads if you have said something like: "work through the backlog," "do up to 3 beads," "keep going until no ready work," or used the **next** keyword (see below).
+- **Clarify at session start.** If the goal is vague (e.g. "build the blog"), the agent should ask: "Work on one bead, or multiple? If multiple, how many?" and then proceed within that bound.
+- **Stop and report.** After completing the allowed number of beads (or when there are no ready beads), stop and give a short summary. When input is needed, show the **keyword menu** (see below).
+
+These rules are reflected in `.cursor/rules/agentic-workflow.mdc` and AGENTS.md.
+
+## 2. Keyword Menu
+
+Map each "stock" prompt to a short **keyword**. When the agent needs your input, it shows the list of valid keywords; you type the keyword (or run the matching Cursor Command), and the agent receives the corresponding full prompt.
+
+Keywords: **next** (move to next bead), **self-review**, **commit**, **cross-review**, **explore**, **post-compact**, **test-coverage**, **ui-scrutiny**, **ui-deep**, **start** (initial marching orders). Full prompt text for each is in `.cursor/rules/agent-prompts-by-keyword.mdc`.
+
+When the agent needs your input, it outputs: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] - reply with a keyword." You type the keyword in chat or run the matching Cursor Command or script (e.g. `./abase-scripts/agent-prompt next`).
+
+## 3. Summary
+
+- **Safety:** One bead by default; multi-bead only when you explicitly say so; agent asks for scope when the goal is vague.
+- **Input:** When the agent needs a next step, it shows the keyword menu; you reply with a keyword (or run the matching command/script) instead of pasting a long prompt.

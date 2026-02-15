@@ -1,0 +1,137 @@
+---
+description: Session handover document management - MUST be loaded and processed at session creation time
+globs:
+alwaysApply: true
+---
+
+# Handover Document Management
+
+This rule governs the creation and processing of session handover documents for maintaining project continuity across AI assistant sessions.
+
+## Processing at Session Start
+
+The live handover content lives in **`.cursor/rules/abase-handover-context.mdc`** with `alwaysApply: true`, so Cursor loads it automatically at session start. The agent does **not** need to read a separate file; handover context is already in scope. Then run `bd ready` (or follow **abase-agentic-workflow.mdc** and **AGENTS.md**).
+
+## Creating a Handover Document
+
+When the user requests a handover document (e.g., "create handover", "prepare handover", "session handover"):
+
+### Step 1: Archive Existing Handover
+
+If `.cursor/rules/abase-handover-context.mdc` exists:
+
+1. Create archive directory if needed: `.cursor/handover-archive/`
+2. Get current timestamp in format: `YYYYMMDDTHHMMSS` (no timezone, no dashes in date)
+3. Move existing file to: `.cursor/handover-archive/handover-YYYYMMDDTHHMMSS.mdc`
+4. Example: `handover-20260208T143000.mdc`
+
+### Step 2: Generate New Handover Document
+
+Create `.cursor/rules/abase-handover-context.mdc` with the following structure. Keep the frontmatter so the file remains an always-applied rule. Fill in the placeholders with **this project’s** overview, locations, URLs, recent work, and tasks. Replace the example rows in Key Locations with paths that exist in the current repo.
+
+```markdown
+---
+description: Session handover context - auto-loaded for continuity (always apply)
+globs:
+alwaysApply: true
+---
+
+# Session Handover Document
+
+**Generated:** YYYY-MM-DD HH:MM:SS UTC
+**Purpose:** Provide continuity context for new AI assistant sessions. This rule is loaded automatically (alwaysApply).
+
+## Project Overview
+
+[Terse 2–3 sentence description of the project, its purpose, and tech stack]
+
+## Key Locations
+
+[Essential paths for this repo — adapt the table to match the project:]
+
+| Location | Purpose |
+|----------|---------|
+| `AGENTS.md` or `README.md` | Top-level instructions or project readme |
+| `docs/` | Project documentation |
+| `.cursor/rules/` | Cursor rules |
+| [Main app or source dir] | [Purpose] |
+| [Config or settings path] | [Purpose] |
+
+[Add any other key files or dirs relevant to recent work]
+
+## URLs
+
+- **Live site:** [public URL if applicable]
+- **Remote server:** [SSH target and code path if applicable]
+
+## Work Completed to Date
+
+[Bullet list of major milestones and completed features, organized by area]
+
+## Environment & Configuration Notes
+
+[Document any quirks, exceptions, or special circumstances, such as:]
+- Non-standard paths or configurations
+- Known issues or workarounds
+- External service dependencies
+- Any "gotchas" discovered during development
+
+**Include if applicable:**
+- Database (e.g. PostgreSQL only; never SQLite in dev/test)
+- After git pull/merge: run migrations or equivalent
+- Verify actual tool/stack versions before documenting (see project’s stack or version docs)
+- Any async worker or background process that must be running (e.g. task queue, MCP server)
+
+## Last 3 Tasks
+
+### Task 1: [Most recent task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files modified, features added]
+
+### Task 2: [Previous task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files modified, features added]
+
+### Task 3: [Earlier task title]
+- **Status:** [Completed / In progress]
+- **Summary:** [1–2 sentence description]
+- **Key Changes:** [Files modified, features added]
+
+## Pending Items
+
+[Optional: Known TODO items, open issues, or next steps discussed but not yet started]
+```
+
+## Archive Cleanup Policy
+
+When creating a new handover, after archiving:
+
+1. List files in `.cursor/handover-archive/`
+2. If more than 30 archived handovers exist, delete the oldest files to maintain only 30
+3. Report how many archives were cleaned up (if any)
+
+## When to Update Handover
+
+- **After docs or versions change:** If you update documentation or tool versions that affect session continuity (e.g. PRD, technology stack, key paths), update `.cursor/rules/abase-handover-context.mdc` so the next session has accurate context.
+- **Recording solutions:** Recording errors and their solutions (e.g. in a `docs/SOLUTIONS.md` or similar) helps handover and future reference; mention such a log in the handover if the project uses one.
+
+## Usage Examples
+
+Example user requests that may trigger handover creation (actual wording may vary):
+
+- "Create a handover document"
+- "Prepare session handover"
+- "Create handover" / "Create handover-context"
+- "I'm ending this session, create a handover"
+- "Handover please"
+
+Use judgment to recognize when the user is requesting a session handover, even if phrased differently.
+
+## Notes
+
+- The live handover content is **`.cursor/rules/abase-handover-context.mdc`** with `alwaysApply: true`, so Cursor loads it automatically; no explicit read at session start is needed.
+- This rule (`handover-management.mdc`) has `alwaysApply: true` so the agent always has the instructions above.
+- Timestamps use local time without timezone suffix.
+- The archive (`.cursor/handover-archive/`) keeps history of previous handovers for reference.

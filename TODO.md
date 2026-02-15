@@ -35,7 +35,7 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 
 **Deliverable:** Same as above: **implement soon**, **defer**, or **ignore**, with focus on whether it can **improve automation continuation** (e.g. fewer copy-pastes, better prompt discipline).
 
-**Status:** Not started.
+**Status:** Done — see **docs/abase/JEFFREYSPROMPTS-EVALUATION.md**. Recommendation: **Defer**; revisit after Django blog MVP.
 
 ---
 
@@ -47,27 +47,27 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 - **Include in this project (yes/no)** and short **reason**.  
 - **Avoid** skills that require paid services or that are tied to specific providers (e.g. Vercel) unless they are clearly beneficial and provider-agnostic or easy to adapt.
 
-**Status:** Done — see **docs/SKILLS-SH-TOP30-EVALUATION.md**.
+**Status:** Done — see **docs/abase/SKILLS-SH-TOP30-EVALUATION.md**.
 
 ---
 
-## 5. Make AGENTS.md generic for template use (deferred)
+## 5. Make AGENTS.md generic for template use
 
 **Task:** This repo is intended as a **template project** that can be copied as the basis for another. AGENTS.md must not be Django-blog-specific. Abstract the following into templates that can be included by reference:
 
 - **Repo description** (first paragraph of AGENTS.md): e.g. "This repo is a **{{PROJECT_TYPE}}** project run with an **agentic workflow**…" so a new project can plug in its own type (e.g. "Django blog", "API service", "static site").
 - **First bullet of Project goal** ("Deliverable"): e.g. a template or placeholder for the concrete deliverable (e.g. "a simple Django blog (posts, optional auth…)" vs "a REST API with …").
 
-**Deliverable:** AGENTS.md (or a stub at root) references template/placeholder content (e.g. from `docs/templates/` or a single `AGENTS-PROJECT-SPECIFIC.md` that projects copy and fill in), so the tree is copy-paste ready and new projects replace only the project-specific bits.
+**Deliverable:** AGENTS.md (or a stub at root) references template/placeholder content (e.g. from `docs/abase-templates/` or a single `AGENTS-PROJECT-SPECIFIC.md` that projects copy and fill in), so the tree is copy-paste ready and new projects replace only the project-specific bits.
 
-**Status:** Deferred. To be done when we prioritize template portability (e.g. after bjn/.cursor analysis or when copying this tree to a new repo).
+**Status:** Done. AGENTS.md uses `{{PROJECT_TYPE}}` and `{{DELIVERABLE}}` placeholders; `docs/abase-templates/AGENTS-PROJECT-EXAMPLES.md` provides examples (Django blog, REST API, static site, full-stack).
 
 ---
 
 ## 6. Clarifications (optional)
 
-- **Allowed sudo commands:** The project-context rule allows “a few” sudo commands (e.g. `sudo mysql -e '...'`). If you want a strict allow-list, we can add a todo to define and document the full list.
-- **Keyword→Cursor Command setup:** If you want Cursor Commands created for each keyword (start, next, self-review, etc.), that can be a short doc or checklist in the repo; no code change required beyond the prompt text already in `.cursor/rules/agent-prompts-by-keyword.mdc`.
+- **Allowed sudo commands:** The abase-project-context rule allows “a few” sudo commands (e.g. `sudo mysql -e '...'`). If you want a strict allow-list, we can add a todo to define and document the full list.
+- **Keyword→Cursor Command setup:** If you want Cursor Commands created for each keyword (start, next, self-review, etc.), that can be a short doc or checklist in the repo; no code change required beyond the prompt text already in `.cursor/rules/abase-agent-prompts-by-keyword.mdc`.
 
 ---
 

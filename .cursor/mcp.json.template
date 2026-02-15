@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "mcp_agent_mail_http": {
+      "url": "http://127.0.0.1:8765/api/",
+      "headers": {
+        "Authorization": "Bearer <YOUR_HEX_TOKEN>"
+      }
+    }
+  }
+}

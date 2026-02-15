@@ -1,0 +1,13 @@
+---
+description: Embedded/firmware complement to abase-embedded-systems skill (jeffallan content)
+globs: "**/*.c" "**/*.h" "**/Makefile" "**/CMakeLists.txt"
+alwaysApply: false
+---
+
+# Embedded Firmware (Complement)
+
+When working with embedded C, firmware, or hardware-adjacent code, also consult the **abase-embedded-systems** skill for structured guidance. This rule complements it with patterns from jeffallan/embedded-systems.
+
+- Prefer deterministic behavior; avoid reliance on timing assumptions where possible.
+- Document hardware dependencies and pin mappings in code comments or a hardware doc.
+- Use defensive checks (null, bounds) even when "it should never happen" in embedded contexts.
