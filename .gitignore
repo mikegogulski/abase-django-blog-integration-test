@@ -7,6 +7,9 @@
 # Beads migration backups (local, machine-specific)
 .beads/backup-before-migrate/
 
+# Beads daemon error output (ephemeral)
+.beads/daemon-error
+
 # Agent Mail mailbox (in-workspace STORAGE_ROOT)
 .agent_mail_mailbox/
 
