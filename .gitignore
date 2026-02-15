@@ -1,5 +1,18 @@
 # bv (beads viewer) local config and caches
 .bv/
 
+# MCP config (contains bearer token; never commit)
+.cursor/mcp.json
+
+# Beads migration backups (local, machine-specific)
+.beads/backup-before-migrate/
+
 # Agent Mail mailbox (in-workspace STORAGE_ROOT)
 .agent_mail_mailbox/
+
+# Agent Mail venv (isolated from project .venv)
+mcp_agent_mail/.abase-venv/
+
+# Session handover (project-specific, regenerated per session)
+.cursor/rules/abase-handover-context.mdc
+.cursor/handover-archive/
