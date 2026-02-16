@@ -4,6 +4,8 @@ description: Toolkit for interacting with and testing local web applications usi
 license: Complete terms in LICENSE.txt
 ---
 
+<!-- Adapted from https://skills.sh/anthropics/skills/webapp-testing (Anthropic) -->
+
 # Web Application Testing
 
 To test local web applications, write native Python Playwright scripts.

@@ -3,6 +3,8 @@ name: test-driven-development
 description: Use when implementing any feature or bugfix, before writing implementation code
 ---
 
+<!-- Adapted from https://skills.sh/obra/superpowers/test-driven-development (Obra) -->
+
 # Test-Driven Development (TDD)
 
 ## Overview

@@ -4,6 +4,8 @@ description: 'Generate high-quality Product Requirements Documents (PRDs) for so
 license: MIT
 ---
 
+<!-- Adapted from https://skills.sh/github/awesome-copilot/prd (GitHub awesome-copilot) -->
+
 # Product Requirements Document (PRD)
 
 ## Overview

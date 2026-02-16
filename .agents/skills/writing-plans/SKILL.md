@@ -3,6 +3,8 @@ name: writing-plans
 description: Use when you have a spec or requirements for a multi-step task, before touching code
 ---
 
+<!-- Adapted from https://skills.sh/obra/superpowers/writing-plans (Obra) -->
+
 # Writing Plans
 
 ## Overview

@@ -126,6 +126,7 @@ Add `--skip-bv` if you don't want BV.
 | `.abase/scripts/` | Framework scripts (ensure/test Agent Mail) |
 | `.abase/scripts/ensure_agent_mail.sh` | Start Agent Mail server |
 | `.abase/scripts/test_agent_mail.sh` | Verify Agent Mail |
+| `.abase/scripts/setup_worktree.sh` | Create git worktree for parallel branches |
 | `.abase/tests/` | P0 tests (run `./.abase/tests/run_tests.sh`) |
 
 ## Updating This Document

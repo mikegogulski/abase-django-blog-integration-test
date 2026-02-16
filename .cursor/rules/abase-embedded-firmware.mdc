@@ -4,6 +4,8 @@ globs: "**/*.c" "**/*.h" "**/Makefile" "**/CMakeLists.txt"
 alwaysApply: false
 ---
 
+<!-- Adapted from https://skills.sh/jeffallan/claude-skills/embedded-systems (Jeffallan) -->
+
 # Embedded Firmware (Complement)
 
 When working with embedded C, firmware, or hardware-adjacent code, also consult the **abase-embedded-systems** skill for structured guidance. This rule complements it with patterns from jeffallan/embedded-systems.

@@ -1,0 +1,61 @@
+---
+description: Check every terminal command for errors; troubleshoot up to 5 times; abort turn if unresolved
+alwaysApply: true
+---
+
+# Terminal Command Error Handling
+
+**Scope:** Every terminal command. Apply to single commands and sequences.
+
+<!--
+Credits: This rule integrates patterns from:
+- Verification Before Completion (oimiragieo/agent-studio) — https://agentskills.me/skill/verification-before-completion
+- Troubleshooting Execute Command (arittr/spectacular) — https://agent-skills.md/skills/arittr/spectacular/troubleshooting-execute
+-->
+
+## Principles
+
+- **Evidence before claims, always.** Never assume a command succeeded. Inspect exit code and full stdout/stderr. Do not say "should work" or "probably" without running and verifying the command.
+- **Run the real command.** Do not infer success from prior steps or skip verification. Run the actual command and check its output.
+
+## Workflow
+
+1. **Run the command.**
+2. **Inspect output:** exit code, full stdout, full stderr.
+3. **Decide:** Is this a real failure?
+   - Non-zero exit + error-like stderr → likely real failure.
+   - Non-zero exit but expected (e.g. `grep` no match, `diff` files differ) → usually not a failure.
+   - When in doubt, treat as failure and troubleshoot.
+4. **If real failure:** Follow the troubleshooting sequence below.
+5. **If still failing after 5 attempts:** Abort the turn and report (see Abort report).
+
+## Troubleshooting sequence
+
+When a real failure occurs, follow this order:
+
+1. **Read the error message carefully** — Full stderr and exit code.
+2. **Identify root cause** — What failed? (e.g. test, build, dependency, permission, path.)
+3. **Check execution state** — Current directory, env, files changed.
+4. **Choose a fix** — Different flags, permissions, path, dependency, or approach. For **permission errors**, it may be appropriate to use `sudo` if available and the operation warrants it. For sandbox or network failures, retry with `required_permissions` (e.g. `full_network`).
+5. **Verify after fix** — Re-run the command or a check before proceeding. Do not assume the fix worked.
+
+Retry up to **5 distinct attempts**. Most failures are recoverable; attempt to fix before aborting.
+
+## Abort report (required when aborting)
+
+Stop immediately. Present the abort report to the user. Do not run further commands or attempt further fixes. Include full decision context so the user can act without re-debugging. Make a suggestion for further troubleshooting steps the user could try. If the failure was caused by a permissions error, call that out specifically. Wait for user guidance before proceeding with any remaining work.
+
+Include all of the following:
+
+1. **The command that failed** (exact invocation).
+2. **Evidence of failure** — What you acted on (e.g. exit code 1, stderr: "Permission denied", stack trace, etc.).
+3. **What was not done** — Inform the user that, due to the abort:
+   - Further commands planned for this turn have not been run.
+   - Tasks requested for this turn have not been carried out.
+   - Exception: Commands or tasks that were **already completed before** the failing command were carried out.
+4. **What you tried** — Summary of the 5 troubleshooting attempts.
+5. **What the user might do** — Suggested next steps (e.g. run manually, provide credentials, use sudo).
+
+## Summary
+
+Check every command's output; troubleshoot up to 5 times; abort with full context if unresolved.

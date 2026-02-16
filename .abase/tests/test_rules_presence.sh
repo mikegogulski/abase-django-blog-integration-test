@@ -17,6 +17,7 @@ REQUIRED=(
   abase-handover-management.mdc
   abase-multi-agent-agent-mail.mdc
   abase-project-context.mdc
+  abase-terminal-command-error-handling.mdc
   abase-workflow.mdc
 )
 

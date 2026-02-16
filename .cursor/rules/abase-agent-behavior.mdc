@@ -3,6 +3,8 @@ description: Hands-off execution; do it yourself; troubleshoot up to 5 times
 alwaysApply: true
 ---
 
+<!-- Adapted from bjn/.cursor/rules/agent-behavior.mdc (generic patterns; see docs/abase/BJN-CURSOR-ANALYSIS.md) -->
+
 # Agent Behavior (hands-off, self-troubleshoot)
 
 ## Highest priority: do it yourself
