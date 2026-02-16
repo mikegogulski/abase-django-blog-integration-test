@@ -90,6 +90,49 @@ class PostListViewTests(TestCase):
         self.assertContains(resp, "Published")
         self.assertNotContains(resp, "Draft")
 
+    def test_pagination(self):
+        for i in range(12):
+            Post.objects.create(
+                author=self.user,
+                title=f"Post {i}",
+                slug=f"post-{i}",
+                content="Content",
+                status=Post.STATUS_PUBLISHED,
+            )
+        resp = self.client.get(reverse("blog:post_list"))
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(resp.context["page_obj"]), 10)
+        resp2 = self.client.get(reverse("blog:post_list") + "?page=2")
+        self.assertEqual(resp2.status_code, 200)
+        self.assertEqual(len(resp2.context["page_obj"]), 2)
+
+    def test_category_filter(self):
+        tech = Category.objects.create(name="Tech", slug="tech")
+        Post.objects.create(
+            author=self.user,
+            title="Tech Post",
+            slug="tech-post",
+            content="Tech",
+            category=tech,
+            status=Post.STATUS_PUBLISHED,
+        )
+        Post.objects.create(
+            author=self.user,
+            title="Other Post",
+            slug="other-post",
+            content="Other",
+            status=Post.STATUS_PUBLISHED,
+        )
+        resp = self.client.get(reverse("blog:category_list", kwargs={"slug": "tech"}))
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "Tech Post")
+        self.assertNotContains(resp, "Other Post")
+        self.assertEqual(resp.context["category"].slug, "tech")
+
+    def test_category_404(self):
+        resp = self.client.get(reverse("blog:category_list", kwargs={"slug": "nonexistent"}))
+        self.assertEqual(resp.status_code, 404)
+
 
 class PostDetailViewTests(TestCase):
     def setUp(self):
@@ -143,6 +186,15 @@ class CommentFormTests(TestCase):
         resp = self.client.post(url, {"content": "My comment"}, follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(Comment.objects.filter(content="My comment").exists())
+
+    def test_comment_linebreaks_to_paragraphs(self):
+        self.client.login(username="test", password="test")
+        url = self.post.get_absolute_url()
+        self.client.post(url, {"content": "Line one\n\nLine two"}, follow=True)
+        resp = self.client.get(url)
+        self.assertContains(resp, "Line one")
+        self.assertContains(resp, "Line two")
+        self.assertIn("<p>", resp.content.decode())
 
 
 class AuthTests(TestCase):
@@ -219,3 +271,42 @@ class FeedSitemapRobotsTests(TestCase):
         resp = self.client.get("/robots.txt")
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, "Sitemap")
+
+
+class ManagementCommandTests(TestCase):
+    def test_setup_flatpages(self):
+        from django.core.management import call_command
+        from io import StringIO
+
+        out = StringIO()
+        call_command("setup_flatpages", stdout=out)
+        out.seek(0)
+        self.assertIn("about", out.read().lower())
+
+        from django.contrib.flatpages.models import FlatPage
+        self.assertTrue(FlatPage.objects.filter(url="/about/").exists())
+        self.assertTrue(FlatPage.objects.filter(url="/contact/").exists())
+
+    def test_seed_posts(self):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+        from io import StringIO
+
+        User = get_user_model()
+        User.objects.create_user(username="admin", password="admin", is_superuser=True, is_staff=True)
+        out = StringIO()
+        call_command("seed_posts", "--count=5", stdout=out)
+        out.seek(0)
+        self.assertIn("Created", out.read())
+
+        self.assertEqual(Post.objects.filter(status=Post.STATUS_PUBLISHED).count(), 5)
+
+    def test_seed_posts_custom_count(self):
+        from django.contrib.auth import get_user_model
+        from django.core.management import call_command
+        from io import StringIO
+
+        User = get_user_model()
+        User.objects.create_user(username="admin", password="admin", is_superuser=True, is_staff=True)
+        call_command("seed_posts", "--count=3", stdout=StringIO())
+        self.assertEqual(Post.objects.filter(status=Post.STATUS_PUBLISHED).count(), 3)

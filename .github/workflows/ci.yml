@@ -17,5 +17,6 @@ jobs:
           cd blog
           uv sync
           uv run python manage.py check
+          uv run python manage.py setup_flatpages
           uv run coverage run --source=blog manage.py test blog
           uv run coverage report --fail-under=90
