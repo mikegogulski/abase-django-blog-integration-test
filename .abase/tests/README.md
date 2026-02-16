@@ -4,6 +4,7 @@ P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.
 
 ## Structure
 
+- `test_common.sh` — Library: REPO_ROOT, pass(), fail(), skip(); sourced by test scripts
 - `mock_health_server.py` — HTTP server returning 200 on `/health/readiness` (for script tests)
 - `test_test_agent_mail.sh` — Tests `.abase/scripts/test_agent_mail.sh` against mock server (A, C)
 - `test_ensure_agent_mail.sh` — Tests `.abase/scripts/ensure_agent_mail.sh` (mocked dependencies) (A)
@@ -24,6 +25,8 @@ From repo root:
 ```
 
 Requires: `bash`, `curl`, `python3` (for mock server).
+
+**Port conflicts:** Tests A and C start a mock HTTP server on ports 19876 and 19877. If Agent Mail or another service uses those ports, set `MOCK_PORT=29876` (or another free port) before running.
 
 ---
 

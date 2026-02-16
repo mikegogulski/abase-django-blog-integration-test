@@ -3,10 +3,7 @@
 # Run from repo root: ./.abase/tests/test_beads_cli.sh
 # Requires: br or bd in PATH
 
-set -euo pipefail
-
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
-cd "$REPO_ROOT"
+. "$(dirname "$0")/test_common.sh"
 
 BD=""
 for cmd in br bd; do
@@ -17,8 +14,7 @@ for cmd in br bd; do
 done
 
 if [[ -z "$BD" ]]; then
-  echo "SKIP test_beads_cli.sh: br/bd not in PATH"
-  exit 0
+  skip "test_beads_cli.sh: br/bd not in PATH"
 fi
 
 TMP=$(mktemp -d)
@@ -29,21 +25,19 @@ cd "$TMP"
 
 out=$("$BD" create "P0 test bead" 2>&1) || true
 if [[ -n "$out" ]]; then
-  echo "PASS br/bd create produces output"
+  pass "br/bd create produces output"
 else
-  echo "FAIL br/bd create should produce output" >&2
-  exit 1
+  fail "br/bd create should produce output"
 fi
 
 out=$("$BD" list 2>&1) || true
 if [[ "$out" == *"P0 test bead"* ]] || [[ "$out" == *"open"* ]] || [[ "$out" == *"ready"* ]] || [[ -n "$out" ]]; then
-  echo "PASS br/bd list works"
+  pass "br/bd list works"
 else
-  echo "FAIL br/bd list should show beads (got: $out)" >&2
-  exit 1
+  fail "br/bd list should show beads (got: $out)"
 fi
 
 "$BD" ready 2>/dev/null || "$BD" ready --json 2>/dev/null || true
-echo "PASS br/bd ready runs"
+pass "br/bd ready runs"
 
 echo "All test_beads_cli.sh checks passed."

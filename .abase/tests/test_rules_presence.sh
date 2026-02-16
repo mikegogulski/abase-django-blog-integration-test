@@ -2,11 +2,10 @@
 # Test abase rules presence and structure. Class E.
 # Run from repo root: ./.abase/tests/test_rules_presence.sh
 
-set -euo pipefail
-
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
-RULES="$REPO_ROOT/.cursor/rules"
+. "$(dirname "$0")/test_common.sh"
 cd "$REPO_ROOT"
+
+RULES="$REPO_ROOT/.cursor/rules"
 
 REQUIRED=(
   abase-agent-behavior.mdc
@@ -16,6 +15,7 @@ REQUIRED=(
   abase-conventions.mdc
   abase-handover-context.mdc
   abase-handover-management.mdc
+  abase-multi-agent-agent-mail.mdc
   abase-project-context.mdc
   abase-workflow.mdc
 )
@@ -23,23 +23,19 @@ REQUIRED=(
 missing=0
 for f in "${REQUIRED[@]}"; do
   if [[ -f "$RULES/$f" ]]; then
-    echo "PASS $f exists"
+    pass "$f exists"
   else
     echo "FAIL $f missing" >&2
     missing=$((missing + 1))
   fi
 done
 
-if [[ $missing -gt 0 ]]; then
-  echo "FAIL $missing required rules missing" >&2
-  exit 1
-fi
+[[ $missing -eq 0 ]] || fail "$missing required rules missing"
 
 if grep -rq "abase-handover-context" "$RULES" 2>/dev/null; then
-  echo "PASS handover-context referenced"
+  pass "handover-context referenced"
 else
-  echo "FAIL handover-context should be referenced" >&2
-  exit 1
+  fail "handover-context should be referenced"
 fi
 
 echo "All test_rules_presence.sh checks passed."

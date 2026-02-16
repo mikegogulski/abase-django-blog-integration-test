@@ -2,18 +2,13 @@
 # Test keyword→prompt mapping in abase-agent-prompts-by-keyword.mdc. Class O.
 # Run from repo root: ./.abase/tests/test_keyword_prompts.sh
 
-set -euo pipefail
-
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
-PROMPTS="$REPO_ROOT/.cursor/rules/abase-agent-prompts-by-keyword.mdc"
+. "$(dirname "$0")/test_common.sh"
 cd "$REPO_ROOT"
 
-REQUIRED_KEYWORDS=(start next self-review commit cross-review explore post-compact test-coverage ui-scrutiny ui-deep)
+PROMPTS="$REPO_ROOT/.cursor/rules/abase-agent-prompts-by-keyword.mdc"
+[[ -f "$PROMPTS" ]] || fail "abase-agent-prompts-by-keyword.mdc not found"
 
-if [[ ! -f "$PROMPTS" ]]; then
-  echo "FAIL abase-agent-prompts-by-keyword.mdc not found" >&2
-  exit 1
-fi
+REQUIRED_KEYWORDS=(start next self-review commit cross-review explore post-compact test-coverage ui-scrutiny ui-deep)
 
 missing=0
 for kw in "${REQUIRED_KEYWORDS[@]}"; do
@@ -21,7 +16,7 @@ for kw in "${REQUIRED_KEYWORDS[@]}"; do
   if grep -q "## $kw" "$PROMPTS" 2>/dev/null; then
     # Section should have non-empty content (code block or text)
     if awk "/^## $kw/,/^## /" "$PROMPTS" | grep -q '```\|[a-zA-Z]'; then
-      echo "PASS keyword $kw has prompt"
+      pass "keyword $kw has prompt"
     else
       echo "FAIL keyword $kw section empty" >&2
       missing=$((missing + 1))
@@ -32,9 +27,6 @@ for kw in "${REQUIRED_KEYWORDS[@]}"; do
   fi
 done
 
-if [[ $missing -gt 0 ]]; then
-  echo "FAIL $missing keyword checks failed" >&2
-  exit 1
-fi
+[[ $missing -eq 0 ]] || fail "$missing keyword checks failed"
 
 echo "All test_keyword_prompts.sh checks passed."
