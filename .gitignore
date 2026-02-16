@@ -28,6 +28,9 @@ tmp/
 # Blog SQLite DB (local)
 blog/db.sqlite3
 
+# Collected static files
+blog/staticfiles/
+
 # Coverage
 blog/.coverage
 
