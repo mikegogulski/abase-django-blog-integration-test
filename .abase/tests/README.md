@@ -14,9 +14,9 @@ P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.
 - `test_handover_structure.sh` — Tests handover sections, archive format (G)
 - `test_config.sh` — Tests no-daemon, mcp.json (H)
 - `test_keyword_prompts.sh` — Tests keyword→prompt mapping (O)
-- `test_scenario_i.sh` — Class I stub (Scenario; skips when deps missing)
-- `test_scenario_j.sh`, `test_scenario_k.sh`, `test_scenario_l.sh`, `test_scenario_n.sh` — Classes J, K, L, N stubs
-- `test_mcp_d.sh`, `test_mcp_m.sh` — Classes D, M stubs (mcp-eval)
+- `test_scenario_i.sh` — Class I: Agent session (Scenario; skips when langwatch-scenario/API key missing)
+- `test_scenario_j.sh`, `test_scenario_k.sh`, `test_scenario_l.sh`, `test_scenario_n.sh` — Classes J, K, L, N (Scenario)
+- `test_mcp_d.sh`, `test_mcp_m.sh` — Classes D, M (mcp-eval; skips when mcpevals/Agent Mail/API key missing)
 - `run_tests.sh` — Run all P0 tests
 
 ## Usage
@@ -67,4 +67,4 @@ Each class of testable requirement maps to a recommended tool. Full analysis: `d
 | **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, br sync --flush-only, git add .beads/ && git commit, git push; handover |
 | **O. Keyword→prompt** | bats-core | — | Each keyword has prompt in mdc |
 
-**P0 scope (current):** A, B, C, E, F, G, H, O. **Later:** D, M (mcp-eval); I, J, K, L, N (Scenario).
+**P0 scope (current):** A, B, C, E, F, G, H, O. **Scenario (I, J, K, L, N):** `uv add 'abase[scenario]'`, set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`, run `./.abase/tests/test_scenario_i.sh` etc. **mcp-eval (D, M):** `uv add 'abase[mcp-eval]'`, ensure Agent Mail running, set API key, run `./.abase/tests/test_mcp_d.sh`.
