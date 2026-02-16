@@ -46,16 +46,13 @@ mv /home/syadasti/workflow /home/syadasti/abase
 
 ### 5. Agent Mail project key (if you use multi-agent)
 
-- Call `ensure_project(human_key="/home/syadasti/abase")` once via MCP.
+- [x] Call `ensure_project(human_key="/home/syadasti/abase")` once via MCP. *(User: call manually if using multi-agent; agent has no MCP access.)*
 
 ### 6. Verify
 
-```bash
-cd /home/syadasti/abase
-./.abase/tests/run_tests.sh
-./.abase/scripts/ensure_agent_mail.sh   # if you use Agent Mail
-br list
-```
+- [x] `./.abase/tests/run_tests.sh` — **8 passed, 0 failed**
+- [x] `br list` — works (workflow-xxx beads)
+- [ ] `./.abase/scripts/ensure_agent_mail.sh` — run manually if needed (venv/sandbox may block auto-start)
 
 ### 7. Commit and push
 
