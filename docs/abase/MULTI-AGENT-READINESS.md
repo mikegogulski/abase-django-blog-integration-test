@@ -10,7 +10,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 ### Beads (installed and initialized)
 
-- **CLI:** `./bin/bd` (or put `abase/bin` on PATH). **Data:** `abase/.beads/` (SQLite, prefix `workflow-`).
+- **CLI:** `./bin/bd` (or put `abase/bin` on PATH). **Data:** `abase/.beads/` (SQLite, prefix `abase-`).
 - **Docs and rules** assume Beads: `bd ready --json`, `bd new`, `bd update`, `bd link`, `discovered_from`, `assignee`.
 - **AGENTS.md** and **.cursor/rules/agentic-workflow.mdc** describe the loop: get ready work → claim → work → discover → close; bounded runs (default one bead); keyword menu when input is needed.
 - **.cursor/rules/abase-workflow.mdc** explains the model; **docs/abase/AGENT-SWARM-EVALUATION.md** explains Beads + BV + Agent Mail + NTM and when to add them.

@@ -16,7 +16,7 @@ When **multiple agents** (e.g. several Cursor sessions) work in this repo and **
    Before starting work on a bead, reserve the file paths (or directories) you intend to modify, with the bead ID as the reason. Use exclusive reservation if the tool supports it so other agents do not edit the same paths.
 
 3. **Announce work**  
-   When you start a bead, send a message to other agents (or to the project) with subject like `[bd-123] Starting auth middleware` and body indicating the bead ID and reserved paths. Use the bead ID as `thread_id` if the tool supports it.
+   When you start a bead, send a message to other agents (or to the project) with subject like `[abase-123] Starting auth middleware` and body indicating the bead ID and reserved paths. Use the bead ID as `thread_id` if the tool supports it.
 
 4. **Check inbox between tasks**  
    Between beads (or when you need input), check your Agent Mail inbox and respond to any messages that require a response.
@@ -25,12 +25,12 @@ When **multiple agents** (e.g. several Cursor sessions) work in this repo and **
    When you finish the bead (or before switching to unrelated work), release your file reservations so other agents can work on those paths.
 
 6. **Announce completion**  
-   Send a short message that the bead is done (e.g. `[bd-123] Completed`), again with the bead ID in the subject/thread.
+   Send a short message that the bead is done (e.g. `[abase-123] Completed`), again with the bead ID in the subject/thread.
 
 ## Beads and assignee
 
 - When claiming a bead, set `assignee` to your Agent Mail identity (or a consistent label for this session) so others can see who is working on what.
-- Pull latest (git) before running `bd ready --json` or `bv --robot-next` so you see up-to-date state; commit code and Beads changes together.
+- Pull latest (git) before running `br ready --json` or `bv --robot-next` so you see up-to-date state; commit code and Beads changes together.
 
 ## If Agent Mail is not configured
 

@@ -4,7 +4,7 @@ abase is a workflow framework for AI-assisted development. It provides Beads (ta
 
 ## How the Framework Works
 
-1. **Beads** — Repo-local task graph (`.beads/`). Agents run `bd ready`, claim tasks, work, and close. Dependencies and `discovered_from` edges keep the plan queryable.
+1. **Beads** — Repo-local task graph (`.beads/`). Agents run `br ready`, claim tasks, work, and close. Dependencies and `discovered_from` edges keep the plan queryable.
 2. **Rules** — `.cursor/rules/abase-*.mdc` define workflow, conventions, handover, and safety. Project-specific rules (e.g. `django-blog.mdc`) live alongside.
 3. **Skills** — `.agents/skills/abase-*` (symlinked to `.cursor/skills/` for Cursor). Skills add PRD, embedded systems, computer vision, etc.
 4. **Handover** — `.cursor/rules/abase-handover-context.mdc` (gitignored) gives new sessions continuity. Archives go to `.cursor/handover-archive/`.
@@ -20,12 +20,13 @@ git clone --recurse-submodules <repo-url>
 cd <repo>
 ```
 
-### 2. Beads (bd)
+### 2. Beads (br)
 
-**Option A — Use bundled binary (if present):**
+**Option A — Install beads_rust (br):**
 
 ```bash
-./bin/bd quickstart   # One-time init per repo
+cargo install beads_rust
+br init   # One-time init per repo
 ```
 
 **Option B — Install via Agent Mail installer (Linux/WSL/macOS only; requires bash):**
@@ -34,7 +35,9 @@ cd <repo>
 curl -fsSL "https://raw.githubusercontent.com/Dicklesworthstone/mcp_agent_mail/main/scripts/install.sh?$(date +%s)" | bash -s -- --yes
 ```
 
-Add `--skip-beads` if you already have `bd` or `br`. **Windows (without WSL):** use Option A with a bundled binary, or install Beads/br manually from [beads_rust](https://github.com/Dicklesworthstone/beads_rust).
+Add `--skip-beads` if you already have `br`. **Windows (without WSL):** install br manually from [beads_rust](https://github.com/Dicklesworthstone/beads_rust).
+
+**Note:** `br` is non-invasive and never executes git commands. After `br sync --flush-only`, run `git add .beads/ && git commit -m "sync beads"`.
 
 ### 3. Agent Mail (optional, for multi-agent)
 
@@ -114,7 +117,7 @@ Add `--skip-bv` if you don't want BV.
 
 | Path | Purpose |
 |------|---------|
-| `./bin/bd` | Beads CLI (run from repo root) |
+| `br` | Beads CLI (beads_rust; run from repo root) |
 | `.beads/` | Beads DB and config |
 | `.cursor/rules/abase-*.mdc` | Framework rules |
 | `.cursor/rules/abase-handover-context.mdc` | Session handover (gitignored) |

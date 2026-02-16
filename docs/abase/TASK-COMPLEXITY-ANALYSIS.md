@@ -20,10 +20,10 @@
 
 | ID | Subtask | Complexity | Deps |
 |----|---------|------------|------|
-| workflow-2rd.1 | Fetch repo, list tools and capabilities | Low | — |
-| workflow-2rd.2 | Compare to Agent Mail, write recommendation (implement/defer/ignore) | Medium | 2rd.1 |
+| abase-2rd.1 | Fetch repo, list tools and capabilities | Low | — |
+| abase-2rd.2 | Compare to Agent Mail, write recommendation (implement/defer/ignore) | Medium | 2rd.1 |
 
-**Epic:** workflow-2rd
+**Epic:** abase-2rd
 
 ---
 
@@ -35,10 +35,10 @@
 
 | ID | Subtask | Complexity | Deps |
 |----|---------|------------|------|
-| workflow-126.1 | List all Dicklesworthstone skills on skills.sh | Low | — |
-| workflow-126.2 | Evaluate each skill; write report (classify, recommend, note deps) | Medium–High | 126.1 |
+| abase-126.1 | List all Dicklesworthstone skills on skills.sh | Low | — |
+| abase-126.2 | Evaluate each skill; write report (classify, recommend, note deps) | Medium–High | 126.1 |
 
-**Epic:** workflow-126 (deferred)
+**Epic:** abase-126 (deferred)
 
 ---
 
@@ -50,12 +50,12 @@
 
 | ID | Subtask | Complexity | Deps |
 |----|---------|------------|------|
-| workflow-vho.1 | P0: Script tests (test_agent_mail, ensure_agent_mail) | Low | — |
-| workflow-vho.2 | P0: Beads CLI tests | Low | — |
-| workflow-vho.3 | P2: Agent Mail integration test | Medium | vho.1 |
-| workflow-vho.4 | P1: Rules/skills presence and lint | Low | — |
+| abase-vho.1 | P0: Script tests (test_agent_mail, ensure_agent_mail) | Low | — |
+| abase-vho.2 | P0: Beads CLI tests | Low | — |
+| abase-vho.3 | P2: Agent Mail integration test | Medium | vho.1 |
+| abase-vho.4 | P1: Rules/skills presence and lint | Low | — |
 
-**Epic:** workflow-vho  
+**Epic:** abase-vho  
 **Note:** P0 tests can run in parallel; P2 should run after P0 script tests pass.
 
 ---
@@ -73,7 +73,7 @@
 
 | Task | Epic | Subtasks | Est. effort |
 |------|------|----------|-------------|
-| 2. Ultimate MCP | workflow-2rd | 2 | 2–4 h |
-| 6. Dicklesworthstone skills | workflow-126 | 2 | 3–8 h |
-| 7. Testing P0–P2 | workflow-vho | 4 | 2–4 h |
+| 2. Ultimate MCP | abase-2rd | 2 | 2–4 h |
+| 6. Dicklesworthstone skills | abase-126 | 2 | 3–8 h |
+| 7. Testing P0–P2 | abase-vho | 4 | 2–4 h |
 | 8. Clarifications | — | — | <1 h |

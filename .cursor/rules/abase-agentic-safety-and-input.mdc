@@ -19,13 +19,13 @@ This rule defines safety boundaries for autonomous continuation and a keyword-to
 - **Clarify at session start.** If the goal is vague (e.g. "build the blog"), the agent should ask: "Work on one bead, or multiple? If multiple, how many?" and then proceed within that bound.
 - **Stop and report.** After completing the allowed number of beads (or when there are no ready beads), stop and give a short summary. When input is needed, show the **keyword menu** (see below).
 
-These rules are reflected in `.cursor/rules/agentic-workflow.mdc` and AGENTS.md.
+These rules are reflected in `.cursor/rules/abase-agentic-workflow.mdc` and AGENTS.md.
 
 ## 2. Keyword Menu
 
 Map each "stock" prompt to a short **keyword**. When the agent needs your input, it shows the list of valid keywords; you type the keyword (or run the matching Cursor Command), and the agent receives the corresponding full prompt.
 
-Keywords: **next** (move to next bead), **self-review**, **commit**, **cross-review**, **explore**, **post-compact**, **test-coverage**, **ui-scrutiny**, **ui-deep**, **start** (initial marching orders). Full prompt text for each is in `.cursor/rules/agent-prompts-by-keyword.mdc`.
+Keywords: **next** (move to next bead), **self-review**, **commit**, **cross-review**, **explore**, **post-compact**, **test-coverage**, **ui-scrutiny**, **ui-deep**, **start** (initial marching orders). Full prompt text for each is in `.cursor/rules/abase-agent-prompts-by-keyword.mdc`.
 
 When the agent needs your input, it outputs: "Next action? [start] [next] [self-review] [commit] [cross-review] [explore] [post-compact] [test-coverage] [ui-scrutiny] [ui-deep] - reply with a keyword." You type the keyword in chat or run the matching Cursor Command or script (e.g. `./.abase/scripts/agent-prompt next`).
 

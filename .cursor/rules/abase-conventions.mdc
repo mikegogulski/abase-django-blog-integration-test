@@ -29,13 +29,11 @@ Use **`.cursor/rules/abase-handover-context.mdc`** for session handovers so new 
 
 ---
 
-## Beads (bd): use direct DB to avoid timeouts
+## Beads (br): beads_rust CLI
 
-**In this repo, Beads is configured with `no-daemon: true` in `.beads/config.yaml`.** All `bd` commands use direct SQLite access and do not start or use the Beads daemon.
+**Use `br` (beads_rust) for all Beads operations.** Install via `cargo install beads_rust` or the Agent Mail installer. Run `br init` once per repo if `.beads/` is not initialized.
 
-**Why:** Previously this repo's Beads database was a "legacy" DB (pre-0.17.5, no repository fingerprint), so the daemon refused to start and every `bd` call waited on that failure before falling back to direct DB (~5+ seconds), causing **timeouts** when Cursor or scripts ran `bd`. We have since run **`bd migrate --update-repo-id`** so the DB is no longer legacy (repository ID is set). We still keep `no-daemon: true` so that agent- and script-invoked `bd` commands stay fast and do not depend on daemon startup.
-
-**If you need the daemon** (e.g. for daemon-backed sync or watch): set `no-daemon: false` in `.beads/config.yaml` or override with `BD_NO_DAEMON=0 bd daemon --start`. For normal use and for agents, leave `no-daemon: true`.
+**Note:** `br` is non-invasive and never executes git commands. After `br sync --flush-only`, run `git add .beads/ && git commit -m "sync beads"`.
 
 ---
 

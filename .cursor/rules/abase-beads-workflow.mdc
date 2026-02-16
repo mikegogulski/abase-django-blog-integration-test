@@ -1,0 +1,68 @@
+---
+description: Plan→beads conversion, polishing, br/bv, Agent Mail; follows planning-workflow
+globs:
+alwaysApply: false
+---
+
+<!-- Adapted from https://skills.sh/dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations/beads-workflow (Dicklesworthstone) -->
+
+# Beads Workflow — From Plan to Actionable Tasks
+
+**Prerequisite:** A polished markdown plan (see **abase-planning-workflow.mdc**).
+
+**Core Principle:** "Check your beads N times, implement once." Beads should be so detailed that agents can implement mechanically.
+
+---
+
+## What Are Beads?
+
+Epics/tasks/subtasks with dependency structure, optimized for AI agents. Key properties: self-contained, self-documenting, dependency-aware, rich descriptions.
+
+---
+
+## Converting Plan to Beads
+
+**Prompt (replace PLAN.md with your plan filename):**
+```
+Read ALL of PLAN.md. Create a comprehensive set of beads with tasks, subtasks, and dependency structure. Include background, reasoning, considerations. Beads must be self-contained—never need the original plan. Use only `br` to create/modify beads and add dependencies.
+```
+
+**Tool:** Use `br` (beads_rust), not `bd`. See **abase-bd-to-br-migration** skill for command mapping.
+
+---
+
+## Polishing Beads
+
+**Prompt:**
+```
+Reread AGENTS.md. Check each bead: does it make sense? Is it optimal? Revise as needed. DO NOT OVERSIMPLIFY. DO NOT LOSE FEATURES. Include unit tests and e2e tests in scope. Use only `br` to modify beads.
+```
+
+Repeat 6–9 rounds until steady-state. If flatlining, start a fresh session and re-establish context with AGENTS.md + README.md.
+
+---
+
+## br / bv Commands
+
+```bash
+br create "Title" -t task -p 1
+br dep add <blocked> <blocker>
+br ready
+br close <id> -r "reason"
+```
+
+**BV (robot mode only):** `bv --robot-next`, `bv --robot-triage`, `bv --robot-insights`. Never run bare `bv` (launches TUI).
+
+---
+
+## Agent Mail Integration
+
+- Use bead ID as `thread_id`: `send_message(..., thread_id="abase-123")`
+- Prefix subjects: `[abase-123] Starting work`
+- File reservation `reason`: `file_reservation_paths(..., reason="abase-123")`
+
+---
+
+## Bead Quality Checklist
+
+Before implementation: self-contained, clear scope, dependencies explicit, testable, includes tests, preserves features, not oversimplified.

@@ -15,7 +15,7 @@ Use these when the agent shows the keyword menu (see **agentic-safety-and-input.
 Initial marching orders (session start).
 
 ```
-First read ALL of the AGENTS.md file and README.md file super carefully and understand ALL of both. Then use your code investigation mode to fully understand the code, technical architecture, and purpose of the project. Then proceed with your next assigned bead: run bd ready --json (or bv --robot-next if BV is available), claim one task, and work on it. Work on exactly one bead unless I say otherwise. When done, stop and show me the keyword menu for next action.
+First read ALL of the AGENTS.md file and README.md file super carefully and understand ALL of both. Then use your code investigation mode to fully understand the code, technical architecture, and purpose of the project. Then proceed with your next assigned bead: run br ready --json (or bv --robot-next if BV is available), claim one task, and work on it. Work on exactly one bead unless I say otherwise. When done, stop and show me the keyword menu for next action.
 ```
 
 ---
@@ -25,7 +25,7 @@ First read ALL of the AGENTS.md file and README.md file super carefully and unde
 Move to next bead.
 
 ```
-Reread AGENTS.md so it's still fresh. Use bv --robot-next (or bd ready --json) to find the most impactful bead to work on next, then start on it. Mark beads appropriately. Pick the next bead you can actually do and start coding. When you finish this bead, stop and show me the keyword menu.
+Reread AGENTS.md so it's still fresh. Use bv --robot-next (or br ready --json) to find the most impactful bead to work on next, then start on it. Mark beads appropriately. Pick the next bead you can actually do and start coding. When you finish this bead, stop and show me the keyword menu.
 ```
 
 ---

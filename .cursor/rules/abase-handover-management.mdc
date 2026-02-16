@@ -10,7 +10,7 @@ This rule governs the creation and processing of session handover documents for 
 
 ## Processing at Session Start
 
-The live handover content lives in **`.cursor/rules/abase-handover-context.mdc`** with `alwaysApply: true`, so Cursor loads it automatically at session start. The agent does **not** need to read a separate file; handover context is already in scope. Then run `bd ready` (or follow **abase-agentic-workflow.mdc** and **AGENTS.md**).
+The live handover content lives in **`.cursor/rules/abase-handover-context.mdc`** with `alwaysApply: true`, so Cursor loads it automatically at session start. The agent does **not** need to read a separate file; handover context is already in scope. Then run `br ready` (or follow **abase-agentic-workflow.mdc** and **AGENTS.md**).
 
 ## Creating a Handover Document
 

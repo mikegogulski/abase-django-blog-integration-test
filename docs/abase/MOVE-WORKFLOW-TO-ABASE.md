@@ -7,10 +7,10 @@
 ## Agent has done (already applied)
 
 - [x] **mcp_agent_mail/.env** — `STORAGE_ROOT` set to `/home/syadasti/abase/.agent_mail_mailbox`
-- [x] **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md** — All `/home/syadasti/workflow` → `/home/syadasti/abase`; MCP prefix `workflow-` → `abase-`
+- [x] **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md** — All `/home/syadasti/workflow` → `/home/syadasti/abase`; MCP prefix `abase-` → `abase-`
 - [x] **docs/abase/MULTI-AGENT-READINESS.md** — All paths `/home/syadasti/workflow` → `/home/syadasti/abase`; `workflow/bin`, `workflow/.beads/`, `workflow/mcp_agent_mail/` → `abase/...`
 - [x] **docs/abase/REORGANIZE-MINIMAL-TOP-LEVEL-ANALYSIS.md** — All paths updated
-- [x] **.beads/config.yaml** — `issue-prefix: "workflow"` added so bead IDs stay `workflow-xxx` after move
+- [x] **.beads/config.yaml** — `issue-prefix: "workflow"` added so bead IDs stay `abase-xxx` after move
 - [x] **Agent Mail** — Stopped (agent ran `pkill -f "mcp_agent_mail.cli serve-http"`)
 
 ---
@@ -51,7 +51,7 @@ mv /home/syadasti/workflow /home/syadasti/abase
 ### 6. Verify
 
 - [x] `./.abase/tests/run_tests.sh` — **8 passed, 0 failed**
-- [x] `br list` — works (workflow-xxx beads)
+- [x] `br list` — works (abase-xxx beads)
 - [x] `./.abase/scripts/ensure_agent_mail.sh` — Agent Mail started successfully
 
 ### 7. Commit and push

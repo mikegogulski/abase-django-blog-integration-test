@@ -1,0 +1,53 @@
+---
+description: Markdown planning methodology (phases 1–3); precedes beads conversion
+globs:
+alwaysApply: false
+---
+
+<!-- Adapted from https://skills.sh/dicklesworthstone/agent_flywheel_clawdbot_skills_and_integrations/planning-workflow (Jeffrey Emanuel / Dicklesworthstone) -->
+
+# Planning Workflow — Markdown Planning (Phases 1–3)
+
+**Scope:** This rule covers markdown planning only. For plan→beads conversion and polishing, see **abase-beads-workflow.mdc**.
+
+**Core Philosophy:** "Planning tokens are a lot fewer and cheaper than implementation tokens." Spend 80%+ time on planning before implementation.
+
+---
+
+## Why Planning Matters
+
+- **Measure twice, cut once** → "Check your plan N times, implement once"
+- A detailed markdown plan is shorter than substantive code files
+- Front-loading human input enables removing yourself from implementation
+- Code writes quickly when agents have a solid plan
+
+---
+
+## Phase 1: Initial Plan
+
+**Where:** GPT Pro with Extended Reasoning, or Claude Opus in webapp.
+
+**Include:** Goals and intent; user workflows; tech stack (specific); architecture decisions; the "Why."
+
+---
+
+## Phase 2: Iterative Refinement
+
+**Prompt (GPT Pro Extended Reasoning):**
+```
+Carefully review this entire plan and propose revisions (architecture, features, etc.) with rationale and git-diff style changes.
+```
+
+**Integrate (Claude Code):** Paste GPT Pro output; use prompt to integrate revisions in-place. Repeat 4–5 rounds until steady-state.
+
+---
+
+## Phase 3: Multi-Model Blending (Optional)
+
+Get competing plans from Gemini, Grok, Opus; use GPT Pro as final arbiter to blend best ideas into one enhanced plan.
+
+---
+
+## When Plan Is Ready
+
+Pass the markdown plan to **abase-beads-workflow.mdc** for conversion to beads and polishing. Do not start implementation until beads are ready.

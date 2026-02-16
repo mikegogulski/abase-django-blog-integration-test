@@ -239,4 +239,4 @@ Per-file classification: **generic** (applicable to any project) vs **BJN-specif
 
 ---
 
-**Beads:** All workflow-989.x tasks (989.10–989.33) analyzed above. Close each bead with: bd update ID --status closed (e.g. workflow-989.11 through workflow-989.33).
+**Beads:** All abase-989.x tasks (989.10–989.33) analyzed above. Close each bead with: bd update ID --status closed (e.g. abase-989.11 through abase-989.33).

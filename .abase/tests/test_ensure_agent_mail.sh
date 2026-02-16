@@ -8,7 +8,14 @@ cd "$REPO_ROOT"
 
 ENSURE_SCRIPT="$REPO_ROOT/.abase/scripts/ensure_agent_mail.sh"
 MOCK_SERVER="$REPO_ROOT/.abase/tests/mock_health_server.py"
-MOCK_PORT="${MOCK_PORT:-19877}"
+# Use different port than test_test_agent_mail when MOCK_PORT is set (avoids TIME_WAIT collision)
+if [[ -n "${MOCK_PORT_ENSURE:-}" ]]; then
+  MOCK_PORT="$MOCK_PORT_ENSURE"
+elif [[ -n "${MOCK_PORT:-}" ]]; then
+  MOCK_PORT=$((MOCK_PORT + 1))
+else
+  MOCK_PORT="${MOCK_PORT:-19877}"
+fi
 
 [[ -x "$ENSURE_SCRIPT" ]] || fail "ensure_agent_mail.sh not found or not executable"
 [[ -f "$MOCK_SERVER" ]] || fail "mock_health_server.py not found: $MOCK_SERVER"
@@ -29,5 +36,21 @@ if "$ENSURE_SCRIPT"; then
 else
   fail "ensure_agent_mail should exit 0 when server already healthy"
 fi
+
+# Test retry loop: server not running, then starts and returns 503 for 2 requests, then 200
+kill $PID 2>/dev/null || true
+wait $PID 2>/dev/null || true
+trap - EXIT
+sleep 1
+RETRY_PORT="${MOCK_PORT_RETRY:-29877}"
+export AGENT_MAIL_PORT="$RETRY_PORT"
+export AGENT_MAIL_BASE_URL="http://127.0.0.1:${RETRY_PORT}"
+export AGENT_MAIL_RUN_SCRIPT="$REPO_ROOT/.abase/tests/run_delayed_mock.sh"
+if "$ENSURE_SCRIPT"; then
+  pass "ensure_agent_mail retry loop: succeeds after server becomes ready"
+else
+  fail "ensure_agent_mail should succeed after retries when server becomes ready"
+fi
+pkill -f "mock_delayed_health_server.py" 2>/dev/null || true
 
 echo "All test_ensure_agent_mail.sh checks passed."

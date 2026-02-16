@@ -12,10 +12,12 @@ REQUIRED=(
   abase-agentic-safety-and-input.mdc
   abase-agentic-workflow.mdc
   abase-agent-prompts-by-keyword.mdc
+  abase-beads-workflow.mdc
   abase-conventions.mdc
   abase-handover-context.mdc
   abase-handover-management.mdc
   abase-multi-agent-agent-mail.mdc
+  abase-planning-workflow.mdc
   abase-project-context.mdc
   abase-terminal-command-error-handling.mdc
   abase-workflow.mdc

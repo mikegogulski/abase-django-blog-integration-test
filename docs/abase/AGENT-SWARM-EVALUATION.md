@@ -70,7 +70,7 @@ These are established options that avoid “human pastes next prompt after every
 | **Ralph loop (cursor-ralph)** | Community workaround: when Cursor hits iteration limit, a hook “restarts” the loop so the agent continues. | Extends single-session autonomy inside Cursor. | macOS-only, depends on accessibility/keyboard simulation; brittle. |
 | **Aider, Bolt.new, Devin-style tools** | Different UIs or APIs; some have “continue” or background modes. | May offer different autonomy/loop semantics. | Different product and workflow; not the same as Cursor + Beads/BV. |
 
-**Summary**: For **Cursor + this repo**, the main lever is **(A) + (B)**: rule-driven “after bead, get next and continue” plus BV (or `bd ready`) for task choice. That gives you swarm-workflow-style behavior with minimal paste. For **fully autonomous, no-Cursor** pipelines, **LangGraph/CrewAI/AutoGen** are the well-known, programmatic alternatives.
+**Summary**: For **Cursor + this repo**, the main lever is **(A) + (B)**: rule-driven “after bead, get next and continue” plus BV (or `bd ready`) for task choice. That gives you swarm-abase-style behavior with minimal paste. For **fully autonomous, no-Cursor** pipelines, **LangGraph/CrewAI/AutoGen** are the well-known, programmatic alternatives.
 
 ---
 

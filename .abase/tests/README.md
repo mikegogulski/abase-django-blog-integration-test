@@ -14,7 +14,10 @@ P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.
 - `test_handover_structure.sh` — Tests handover sections, archive format (G)
 - `test_config.sh` — Tests no-daemon, mcp.json (H)
 - `test_keyword_prompts.sh` — Tests keyword→prompt mapping (O)
-- `run_tests.sh` — Run all tests
+- `test_scenario_i.sh` — Class I stub (Scenario; skips when deps missing)
+- `test_scenario_j.sh`, `test_scenario_k.sh`, `test_scenario_l.sh`, `test_scenario_n.sh` — Classes J, K, L, N stubs
+- `test_mcp_d.sh`, `test_mcp_m.sh` — Classes D, M stubs (mcp-eval)
+- `run_tests.sh` — Run all P0 tests
 
 ## Usage
 
@@ -56,12 +59,12 @@ Each class of testable requirement maps to a recommended tool. Full analysis: `d
 | **F. Skills presence** | bats-core | — | SKILL.md; symlinks |
 | **G. Handover structure** | bats-core | — | Section headers; archive format |
 | **H. Config** | bats-core | — | no-daemon; mcp.json |
-| **I. Agent session** | Scenario | Claude 3.5 Sonnet | bd ready → claim → work → close |
+| **I. Agent session** | Scenario | Claude 3.5 Sonnet | br ready → claim → work → close |
 | **J. Agent bounded** | Scenario | Claude 3.5 Sonnet | One bead default; stop unless "next" |
 | **K. Keyword menu** | Scenario | Claude 3.5 Sonnet | Output contains "Next action? [start] [next] ..." |
 | **L. Agent Mail behavior** | Scenario | Claude 3.5 Sonnet | Agent runs ensure/test when needed |
 | **M. Multi-agent MCP** | mcp-eval | Claude 3.5 Sonnet | Reserve, announce, inbox tool usage |
-| **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, bd sync, git push; handover |
+| **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, br sync --flush-only, git add .beads/ && git commit, git push; handover |
 | **O. Keyword→prompt** | bats-core | — | Each keyword has prompt in mdc |
 
 **P0 scope (current):** A, B, C, E, F, G, H, O. **Later:** D, M (mcp-eval); I, J, K, L, N (Scenario).

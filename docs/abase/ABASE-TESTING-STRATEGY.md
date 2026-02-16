@@ -1,7 +1,8 @@
 # Testing Strategy for the abase Framework
 
 **Created:** 2026-02-15  
-**Bead:** workflow-3l8  
+**Updated:** 2026-02-16  
+**Bead:** abase-3l8  
 **Purpose:** Research prior work and propose a testing strategy for the abase agentic workflow framework.
 
 ---
@@ -65,7 +66,7 @@
 
 | Component | Type | Testable? | Notes |
 |-----------|------|-----------|-------|
-| **Beads (br/bd)** | CLI + JSONL + SQLite | Yes | Deterministic; CLI commands, JSONL schema, sync |
+| **Beads (br)** | CLI + JSONL + SQLite | Yes | Deterministic; CLI commands, JSONL schema, sync; br is non-invasive (no git) |
 | **Rules (.cursor/rules/abase-*.mdc)** | Markdown files | Partially | Structure, presence, cross-refs; semantics need agent runs |
 | **Scripts (ensure_agent_mail, test_agent_mail)** | Bash | Yes | Deterministic; mock or real Agent Mail |
 | **Agent Mail MCP** | HTTP server | Yes | Health endpoint, API contract; integration with real server |
@@ -86,8 +87,9 @@
    - `.abase/scripts/ensure_agent_mail.sh`: Unit test logic (retry loop, env vars) with mocked `test_agent_mail.sh`
 
 2. **Beads**
-   - `br create`, `br update`, `br list`, `br ready` with fixture `.beads/`; assert JSONL and CLI output
+   - `br create`, `br update`, `br list`, `br ready`, `br close` with fixture `.beads/`; assert JSONL and CLI output
    - Schema validation for `issues.jsonl` (required fields, valid statuses)
+   - Sync workflow: `br sync --flush-only` + `git add .beads/ && git commit` (br is non-invasive)
 
 3. **Rules**
    - Presence check: all `abase-*.mdc` exist
@@ -108,6 +110,7 @@
 
 2. **Beads**
    - Full workflow: `br create` → `br update` → `br close`; verify JSONL and DB consistency
+   - Sync and commit: `br sync --flush-only`; `git add .beads/ && git commit -m "sync beads"`
 
 ### Tier 3: Scenario / E2E (Agent Behavior)
 
@@ -123,6 +126,7 @@
 - Task lifecycle: claim → work → discover → close
 - Bounded continuation: agent stops after one bead unless "next" or multi-bead requested
 - Keyword menu: agent outputs menu when done
+- Landing the plane: `git pull --rebase`, `br sync --flush-only`, `git add .beads/ && git commit`, `git push`
 
 **Challenges:**
 - Non-determinism: run multiple times; use flexible assertions
@@ -150,24 +154,38 @@
 
 ---
 
-## 5. Recommended First Steps
+## 5. Framework Validation via Real Deliverable
 
-1. ~~**Add `scripts/` or `.abase/scripts/test/`**~~ **Done.** P0 script tests in **`.abase/tests/`** (see `.abase/tests/README.md` for per-class tool recommendations and links):
-   - `mock_health_server.py` — HTTP server returning 200 on `/health/readiness`
-   - `test_test_agent_mail.sh` — Tests `test_agent_mail.sh` (server up → 0, down → 1)
-   - `test_ensure_agent_mail.sh` — Tests `ensure_agent_mail.sh` (server already healthy → 0)
-   - `run_tests.sh` — Run all P0 script tests
+**Approach:** Build a real project (e.g. Django blog MVP) using the abase framework end-to-end. Agents follow Beads, rules, handover, and Agent Mail conventions to produce working code. Success validates that the framework supports real workflows.
+
+**Epic:** abase-2cf (Django blog MVP). Tasks: project setup (abase-rjh), posts app, listing/detail, optional auth, tests. Uses `django-blog.mdc` and abase rules.
+
+**Value:** Catches integration gaps (rules, scripts, handover, Beads) that unit tests miss. Complements Tier 1–3.
+
+---
+
+## 6. Recommended First Steps
+
+1. ~~**P0 tests**~~ **Done.** All P0 tests in **`.abase/tests/`** (see `.abase/tests/README.md`):
+   - `test_test_agent_mail.sh` — Script: server up → 0, down → 1
+   - `test_ensure_agent_mail.sh` — Script: server already healthy → 0
+   - `test_beads_cli.sh` — Beads: create, update, list, ready, schema
+   - `test_rules_presence.sh` — Rules: abase-*.mdc exist, handover ref
+   - `test_skills_presence.sh` — Skills: SKILL.md, symlinks
+   - `test_handover_structure.sh` — Handover: sections, archive format
+   - `test_config.sh` — Config: no-daemon, mcp.json
+   - `test_keyword_prompts.sh` — Keywords: each maps to prompt
    - Usage: `./.abase/tests/run_tests.sh` from repo root
 
 2. **Add CI job** (e.g. GitHub Actions) that runs `.abase/tests/run_tests.sh` on push.
 
-3. **Document** — See `.abase/tests/README.md`.
+3. **Defer** Tier 3 (scenario E2E) until Tier 1–2 are stable; then prototype with Promptfoo or a minimal harness.
 
-4. **Defer** Tier 3 (scenario E2E) until Tier 1–2 are stable; then prototype with Promptfoo or a minimal harness.
+4. **Framework validation:** When ready, run abase-2cf (Django blog MVP) to validate the framework with a real deliverable.
 
 ---
 
-## 6. References
+## 7. References
 
 - [Empirical Study: Testing Practices in AI Agent Frameworks](https://arxiv.org/html/2509.19185v2)
 - [AgentCompass: Production Evaluation](https://arxiv.org/abs/2509.14647)

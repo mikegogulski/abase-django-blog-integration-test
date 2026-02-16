@@ -12,7 +12,7 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 - Classify each rule/document as **generic** (applicable to any project) or **specific to BJN**.  
 - For each, give a **yes/no recommendation** on whether it should be included in this (workflow / Django blog) project, with brief reason.
 
-**Status:** Split into Beads. Epic **workflow-989** "Analyze bjn/.cursor: generic vs project-specific (TODO #1)" with 33 child tasks (one per file), e.g. **workflow-989.1** … **workflow-989.33**. Work on one file per bead; report classify + recommend per file. Django beads (workflow-2cf, workflow-rjh) are **deferred** until user explicitly requests Django work—see `bd undefer workflow-2cf workflow-rjh` when ready.
+**Status:** Split into Beads. Epic **abase-989** "Analyze bjn/.cursor: generic vs project-specific (TODO #1)" with 33 child tasks (one per file), e.g. **abase-989.1** … **abase-989.33**. Work on one file per bead; report classify + recommend per file. Django beads (abase-2cf, abase-rjh) are **deferred** until user explicitly requests Django work—see `bd undefer abase-2cf abase-rjh` when ready.
 
 ---
 
@@ -65,7 +65,7 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 
 **Deliverable:** For each skill: classify as generic vs project-specific; recommend include in this project (yes/no) with brief reason; note any paid/provider dependencies. Output similar to **docs/abase/SKILLS-SH-TOP30-EVALUATION.md**.
 
-**Status:** Bead **workflow-126** created (deferred). Run `br undefer workflow-126` when ready.
+**Status:** Bead **abase-126** created (deferred). Run `br undefer abase-126` when ready.
 
 ---
 
@@ -73,7 +73,7 @@ This file tracks analysis and evaluation tasks for the workflow project. Each it
 
 **Task:** Research prior work on testing agentic/AI frameworks; propose and implement a testing strategy for abase.
 
-**Status:** Bead **workflow-3l8** completed. Report: **docs/abase/ABASE-TESTING-STRATEGY.md**. Epic **workflow-vho** with subtasks: P0 script tests (workflow-vho.1), P0 Beads CLI (workflow-vho.2), P1 rules lint (workflow-vho.4), P2 Agent Mail integration (workflow-vho.3). **P0 script tests implemented** in `.abase/tests/` — run `./.abase/tests/run_tests.sh`. Next: P0 Beads tests, P1 rules lint.
+**Status:** Bead **abase-3l8** completed. Report: **docs/abase/ABASE-TESTING-STRATEGY.md**. Epic **abase-vho** with subtasks: P0 script tests (abase-vho.1), P0 Beads CLI (abase-vho.2), P1 rules lint (abase-vho.4), P2 Agent Mail integration (abase-vho.3). **P0 script tests implemented** in `.abase/tests/` — run `./.abase/tests/run_tests.sh`. Next: P0 Beads tests, P1 rules lint.
 
 ---
 
