@@ -1,0 +1,21 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+      - name: Run tests
+        run: |
+          cd blog
+          uv sync
+          uv run python manage.py check
+          uv run coverage run --source=blog manage.py test blog
+          uv run coverage report --fail-under=90

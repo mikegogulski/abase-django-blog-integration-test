@@ -34,6 +34,10 @@ blog/staticfiles/
 # Coverage
 blog/.coverage
 
+# Integration test metrics (generated)
+integration-test-metrics.json
+integration-test-metrics.md
+
 # Python bytecode
 __pycache__/
 
