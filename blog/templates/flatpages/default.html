@@ -1,0 +1,7 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ flatpage.title }} - {{ BLOG_TITLE }}{% endblock %}
+
+{% block content %}
+{{ flatpage.content|safe }}
+{% endblock %}

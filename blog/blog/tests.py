@@ -172,3 +172,30 @@ class AuthTests(TestCase):
         resp = self.client.post(reverse("logout"), follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertFalse(resp.wsgi_request.user.is_authenticated)
+
+
+class FlatpageTests(TestCase):
+    def setUp(self):
+        from django.contrib.flatpages.models import FlatPage
+        from django.contrib.sites.models import Site
+
+        site = Site.objects.get(id=1)
+        site.domain = "testserver"
+        site.save()
+        for url, title, content in [
+            ("/about/", "About", "<h1>About</h1>"),
+            ("/contact/", "Contact", "<h1>Contact</h1>"),
+        ]:
+            fp, _ = FlatPage.objects.get_or_create(url=url, defaults={"title": title, "content": content})
+            fp.sites.add(site)
+        self.client = Client()
+
+    def test_about(self):
+        resp = self.client.get("/about/")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "About")
+
+    def test_contact(self):
+        resp = self.client.get("/contact/")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "Contact")
