@@ -19,6 +19,12 @@
 # Framework dev venv (langwatch, mcpevals)
 .abase/.venv/
 
+# Python bytecode
+__pycache__/
+
+# Backup files
+*.bak
+
 # Session handover (project-specific, regenerated per session)
 .cursor/rules/abase-handover-context.mdc
 .cursor/handover-archive/
