@@ -1,0 +1,34 @@
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }} - {{ BLOG_TITLE }}{% endblock %}
+
+{% block content %}
+<article>
+  <h1>{{ post.title }}</h1>
+  <p>By {{ post.author }} on {{ post.published_at|date:"Y-m-d" }}{% if post.category %} · {{ post.category.name }}{% endif %}</p>
+  <div>{{ post.content|linebreaks }}</div>
+</article>
+
+<section>
+  <h2>Comments</h2>
+  {% for comment in post.comments.all %}
+    <div>
+      <p><strong>{{ comment.author }}</strong> · {{ comment.created_at|date:"Y-m-d H:i" }}</p>
+      <div>{{ comment.content|linebreaks }}</div>
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <h3>Add a comment</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'admin:login' %}?next={{ request.path }}">Log in</a> to comment.</p>
+  {% endif %}
+</section>
+{% endblock %}
