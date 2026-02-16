@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Pre-push hook: display CalVer before pushing.
+# Install: git config core.hooksPath .abase/hooks
+# Chains to .git/hooks/pre-push if present (Husky, pre-commit, mcp_agent_mail guard, etc.)
+set -euo pipefail
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+GIT_DIR="$(git rev-parse --git-dir)"
+cd "$REPO_ROOT"
+VERSION=$("$REPO_ROOT/.abase/scripts/version.sh")
+echo "→ Pushing abase $VERSION"
+if [[ -x "$GIT_DIR/hooks/pre-push" ]]; then
+  exec "$GIT_DIR/hooks/pre-push" "$@"
+fi

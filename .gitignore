@@ -6,7 +6,6 @@
 
 # Beads migration backups (local, machine-specific)
 .beads/backup-before-migrate/
-.beads/backup-prefix-migration/
 
 # Beads daemon error output (ephemeral)
 .beads/daemon-error
@@ -15,7 +14,10 @@
 .agent_mail_mailbox/
 
 # Agent Mail venv (isolated from project .venv)
-mcp_agent_mail/.abase-venv/
+.abase/mcp_agent_mail/.abase-venv/
+
+# Framework dev venv (langwatch, mcpevals)
+.abase/.venv/
 
 # Session handover (project-specific, regenerated per session)
 .cursor/rules/abase-handover-context.mdc

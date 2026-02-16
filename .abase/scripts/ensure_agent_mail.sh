@@ -8,7 +8,7 @@ set -euo pipefail
 
 REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "$0")/../.." && pwd)}"
 TEST_SCRIPT="$REPO_ROOT/.abase/scripts/test_agent_mail.sh"
-SERVER_DIR="$REPO_ROOT/mcp_agent_mail"
+SERVER_DIR="$REPO_ROOT/.abase/mcp_agent_mail"
 RUN_SCRIPT="${AGENT_MAIL_RUN_SCRIPT:-$SERVER_DIR/scripts/run_server_with_token.sh}"
 MAX_ATTEMPTS=5
 

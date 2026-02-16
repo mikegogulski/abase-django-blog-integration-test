@@ -12,7 +12,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]  # .abase/tests/scenario -> repo root
 
 # Check for Scenario and API key
 try:
@@ -44,12 +44,12 @@ def test_agent_session_stub():
     if not HAS_SCENARIO:
         print(
             "SKIP test_agent_session: langwatch-scenario not installed "
-            "(uv add 'abase[scenario]')"
+            "(cd .abase && uv sync --extra scenario)"
         )
         sys.exit(77)
     if not HAS_API_KEY:
         print(
-            "SKIP test_agent_session: OPENAI_API_KEY or ANTHROPIC_API_KEY not set"
+            "SKIP test_agent_session: API keys missing (set OPENAI_API_KEY or ANTHROPIC_API_KEY)"
         )
         sys.exit(77)
 

@@ -1,8 +1,8 @@
 [project]
 name = "abase"
-version = "0.1.0"
+version = "0.1.0"  # CalVer: ./.abase/scripts/version.sh
 description = "Agentic workflow framework with Beads, Agent Mail, and rules"
-readme = "README-ABASE.md"
+readme = "../README-ABASE.md"
 requires-python = ">=3.11"
 
 [project.optional-dependencies]

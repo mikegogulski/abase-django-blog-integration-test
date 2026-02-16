@@ -67,4 +67,4 @@ Each class of testable requirement maps to a recommended tool. Full analysis: `d
 | **N. Landing the plane** | Scenario | Claude 3.5 Sonnet | git pull, br sync --flush-only, git add .beads/ && git commit, git push; handover |
 | **O. Keyword→prompt** | bats-core | — | Each keyword has prompt in mdc |
 
-**P0 scope (current):** A, B, C, E, F, G, H, O. **Scenario (I, J, K, L, N):** `uv add 'abase[scenario]'`, set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`, run `./.abase/tests/test_scenario_i.sh` etc. **mcp-eval (D, M):** `uv add 'abase[mcp-eval]'`, ensure Agent Mail running, set API key, run `./.abase/tests/test_mcp_d.sh`.
+**P0 scope (current):** A, B, C, E, F, G, H, O. **Scenario (I, J, K, L, N):** `cd .abase && uv sync --extra scenario`, set `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`, run `./.abase/tests/test_scenario_i.sh` etc. **mcp-eval (D, M):** `cd .abase && uv sync --extra mcp-eval`, ensure Agent Mail running, set API key, run `./.abase/tests/test_mcp_d.sh`.

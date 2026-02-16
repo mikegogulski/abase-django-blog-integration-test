@@ -14,5 +14,5 @@ except ImportError:
 
 pytestmark = pytest.mark.skipif(
     not HAS_MCPEVALS,
-    reason="mcpevals not installed (uv add 'abase[mcp-eval]')",
+    reason="mcpevals not installed (cd .abase && uv sync --extra mcp-eval)",
 )

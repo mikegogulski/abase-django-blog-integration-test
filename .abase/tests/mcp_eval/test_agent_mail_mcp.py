@@ -19,14 +19,14 @@ pytestmark = [
     pytest.mark.skipif(not HAS_MCPEVALS, reason="mcpevals not installed"),
     pytest.mark.skipif(
         not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("OPENAI_API_KEY")),
-        reason="ANTHROPIC_API_KEY or OPENAI_API_KEY required",
+        reason="API keys missing (set ANTHROPIC_API_KEY or OPENAI_API_KEY)",
     ),
     pytest.mark.asyncio,
     pytest.mark.network,
 ]
 
 
-@pytest.mark.mcp_agent  # Uses default agent from mcpeval.yaml
+@pytest.mark.mcp_agent  # Uses default agent from mcpeval.yaml or mcp-agent.config.yaml
 async def test_register_agent(mcp_agent):
     """Verify agent can register with Agent Mail."""
     if mcp_agent is None:

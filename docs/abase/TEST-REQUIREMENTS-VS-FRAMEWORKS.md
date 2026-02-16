@@ -93,7 +93,7 @@
 | **Scripts** | `test_agent_mail.sh`: GET `/health/readiness` 200 → exit 0 |
 | **Scripts** | `test_agent_mail.sh`: non-200 or unreachable → exit non-zero |
 | **Scripts** | `ensure_agent_mail.sh`: polls `test_agent_mail.sh` every 3s, 5 attempts |
-| **Scripts** | `ensure_agent_mail.sh`: uses `mcp_agent_mail/scripts/run_server_with_token.sh` |
+| **Scripts** | `ensure_agent_mail.sh`: uses `.abase/mcp_agent_mail/scripts/run_server_with_token.sh` |
 | **Scripts** | Env: `AGENT_MAIL_PORT`, `AGENT_MAIL_BASE_URL` |
 
 ### From abase-agent-prompts-by-keyword.mdc

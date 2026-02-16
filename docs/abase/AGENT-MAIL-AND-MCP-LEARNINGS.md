@@ -12,12 +12,12 @@ Notes from getting Agent Mail and its MCP server running in this project.
 
 - **Start before use:** Run **`./.abase/scripts/ensure_agent_mail.sh`** from the repo root before using any Agent Mail MCP tools. The server may not be running after a Cursor or machine restart.
 - **Verify:** Run **`./.abase/scripts/test_agent_mail.sh`** after starting or when something fails. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
-- **Venv:** The server runs with **Python 3.12** in `mcp_agent_mail/.abase-venv` (isolated from your project's `.venv`). After a fresh submodule clone or `git submodule update`, recreate: `cd mcp_agent_mail && uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`. Python 3.14 caused pydantic errors. **Existing setups:** `.abase/scripts/ensure_agent_mail.sh` prefers `.abase-venv` but falls back to `.venv` if present.
+- **Venv:** The server runs with **Python 3.12** in `.abase/mcp_agent_mail/.abase-venv` (isolated from your project's `.venv`). After a fresh submodule clone or `git submodule update`, recreate: `cd .abase/mcp_agent_mail && uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`. Python 3.14 caused pydantic errors. **Existing setups:** `.abase/scripts/ensure_agent_mail.sh` prefers `.abase-venv` but falls back to `.venv` if present.
 
 ## Mailbox (STORAGE_ROOT)
 
 - **Use workspace path:** Set **`STORAGE_ROOT`** to a directory **inside the workspace** (e.g. **`/home/syadasti/abase/.agent_mail_mailbox`**) so the process that runs the MCP server can write to it. The default `~/.mcp_agent_mail_git_mailbox_repo` can hit permission or sandbox restrictions when Cursor (or its MCP layer) runs the server.
-- **Config:** In **`mcp_agent_mail/.env`** set:
+- **Config:** In **`.abase/mcp_agent_mail/.env`** set:
   - `HTTP_BEARER_TOKEN=...` (same token as in `.cursor/mcp.json` headers)
   - `STORAGE_ROOT=/home/syadasti/abase/.agent_mail_mailbox`
 - **Git:** **`.agent_mail_mailbox/`** is in the repo **`.gitignore`**; do not commit mailbox data.
@@ -25,7 +25,7 @@ Notes from getting Agent Mail and its MCP server running in this project.
 
 ## Submodule
 
-- **`mcp_agent_mail`** is a Git submodule. After `git clone --recurse-submodules` or `git submodule update --init`, run in `mcp_agent_mail`: `uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`, and ensure `.env` exists with `HTTP_BEARER_TOKEN` and `STORAGE_ROOT` as above.
+- **`.abase/mcp_agent_mail`** is a Git submodule. After `git clone --recurse-submodules` or `git submodule update --init`, run in `.abase/mcp_agent_mail`: `uv venv --python 3.12 .abase-venv && UV_PROJECT_ENVIRONMENT=.abase-venv uv sync`, and ensure `.env` exists with `HTTP_BEARER_TOKEN` and `STORAGE_ROOT` as above.
 
 ## Multi-agent (4 or 8 agents)
 

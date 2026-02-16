@@ -23,8 +23,8 @@ Scripts to **ensure** the Agent Mail server is running and to **test** that it i
 
 ## Implementation details
 
-- Test hits `http://127.0.0.1:8765/health/readiness` (no auth). Server must be started from `mcp_agent_mail/` with the Agent Mail venv (Python 3.12 in `.abase-venv`, or `.venv` for backward compat).
-- Ensure script starts the server via `mcp_agent_mail/scripts/run_server_with_token.sh` and then polls `.abase/scripts/test_agent_mail.sh` every 3 seconds, up to 5 times.
+- Test hits `http://127.0.0.1:8765/health/readiness` (no auth). Server must be started from `.abase/mcp_agent_mail/` with the Agent Mail venv (Python 3.12 in `.abase-venv`, or `.venv` for backward compat).
+- Ensure script starts the server via `.abase/mcp_agent_mail/scripts/run_server_with_token.sh` and then polls `.abase/scripts/test_agent_mail.sh` every 3 seconds, up to 5 times.
 - **Agents:** When running the test or ensure script from a sandboxed environment, use `required_permissions: ["network"]` or `["full_network"]` so the script can reach 127.0.0.1.
 
 ## See also

@@ -28,8 +28,8 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 ### Agent Mail (MCP) — installed and configured
 
-- **Server:** `abase/mcp_agent_mail/`. Run with **Python 3.12** in `.abase-venv` (isolated from project `.venv`; 3.14 had pydantic errors).
-- **Start:** `cd mcp_agent_mail && ./scripts/run_server_with_token.sh` or `uv run python -m mcp_agent_mail.cli serve-http` (default: http://127.0.0.1:8765/api/).
+- **Server:** `abase/.abase/mcp_agent_mail/`. Run with **Python 3.12** in `.abase-venv` (isolated from project `.venv`; 3.14 had pydantic errors).
+- **Start:** `cd .abase/mcp_agent_mail && ./scripts/run_server_with_token.sh` or `uv run python -m mcp_agent_mail.cli serve-http` (default: http://127.0.0.1:8765/api/).
 - **Cursor:** project-local `.cursor/mcp.json` points at `http://127.0.0.1:8765/api/` with bearer token. Start the server before using Agent Mail in Cursor.
 - **Rules:** `.cursor/rules/abase-multi-agent-agent-mail.mdc` tells agents to register, reserve files, announce work by bead ID, check inbox, release.
 
@@ -52,7 +52,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 |-------|--------|------|
 | **Beads (`bd`)** | Done | `./bin/bd`, `.beads/` initialized, seed issues created. |
 | **BV** | Done | `~/.local/bin/bv`; use `bv --robot-next` / `bv --robot-triage`. |
-| **Agent Mail (MCP)** | Done | `mcp_agent_mail/` in repo; venv `.abase-venv` (Python 3.12); start with `./.abase/scripts/ensure_agent_mail.sh` or `mcp_agent_mail/scripts/run_server_with_token.sh`. |
+| **Agent Mail (MCP)** | Done | `.abase/mcp_agent_mail/` in repo; venv `.abase-venv` (Python 3.12); start with `./.abase/scripts/ensure_agent_mail.sh` or `.abase/mcp_agent_mail/scripts/run_server_with_token.sh`. |
 | **Cursor MCP config** | Project-local | `.cursor/mcp.json` has Agent Mail URL and bearer token. Enable the working MCP server; disable any broken duplicate. See **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md**. |
 | **Multi-agent rules** | Done | `.cursor/rules/multi-agent-agent-mail.mdc` (register, reserve, announce, inbox, release). |
 | **NTM (optional)** | Deferred | Only for scripted prompt injection into tmux; optional for multiple Cursor windows + Beads + Agent Mail. |

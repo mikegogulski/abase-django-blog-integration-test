@@ -20,6 +20,14 @@ git clone --recurse-submodules <repo-url>
 cd <repo>
 ```
 
+**Optional — CalVer pre-push hook:** To show the version when pushing, run:
+
+```bash
+git config core.hooksPath .abase/hooks
+```
+
+The pre-push hook prints `→ Pushing abase YYYY.MM.DD.N` (CalVer date + commit count).
+
 ### 2. Beads (br)
 
 **Option A — Install beads_rust (br):**
@@ -47,12 +55,12 @@ Add `--skip-beads` if you already have `br`. **Windows (without WSL):** install 
 
    ```bash
    git submodule update --init
-   cd mcp_agent_mail
+   cd .abase/mcp_agent_mail
    uv venv --python 3.12 .abase-venv
    UV_PROJECT_ENVIRONMENT=.abase-venv uv sync
    ```
 
-2. **Create `.env`** in `mcp_agent_mail/`:
+2. **Create `.env`** in `.abase/mcp_agent_mail/`:
 
    ```
    HTTP_BEARER_TOKEN=<hex-token>
@@ -89,10 +97,10 @@ Add `--skip-beads` if you already have `br`. **Windows (without WSL):** install 
 **Windows (PowerShell, without WSL):** The curl-based installer and `.abase/scripts/*.sh` require bash. Use manual setup:
 
 1. **Install uv** (PowerShell or WinGet): `powershell -ExecutionPolicy Bypass -c "irm https://astral.sh/uv/install.ps1 | iex"` — or `winget install -e --id astral-sh.uv`
-2. **Submodule and venv:** `git submodule update --init`, then `cd mcp_agent_mail`, `uv venv --python 3.12 .abase-venv`, `$env:UV_PROJECT_ENVIRONMENT=".abase-venv"; uv sync`
+2. **Submodule and venv:** `git submodule update --init`, then `cd .abase/mcp_agent_mail`, `uv venv --python 3.12 .abase-venv`, `$env:UV_PROJECT_ENVIRONMENT=".abase-venv"; uv sync`
 3. **Create `.env`** with `HTTP_BEARER_TOKEN` and `STORAGE_ROOT` (same format as above). Generate hex token: `-join ((1..32) | ForEach-Object { '{0:x2}' -f (Get-Random -Maximum 256) })`
 4. **Add MCP config** (same JSON as above)
-5. **Start server manually:** `$env:UV_PROJECT_ENVIRONMENT=".abase-venv"; uv run python -m mcp_agent_mail.cli serve-http --host 127.0.0.1 --port 8765` — keep terminal open. Verify: `Invoke-WebRequest -Uri http://127.0.0.1:8765/health/readiness -UseBasicParsing` returns 200
+5. **Start server manually:** `cd .abase/mcp_agent_mail`, `$env:UV_PROJECT_ENVIRONMENT=".abase-venv"; uv run python -m mcp_agent_mail.cli serve-http --host 127.0.0.1 --port 8765` — keep terminal open. Verify: `Invoke-WebRequest -Uri http://127.0.0.1:8765/health/readiness -UseBasicParsing` returns 200
 
 See **docs/abase/AGENT-MAIL-SCRIPTS.md** and **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md** for details.
 
@@ -125,12 +133,14 @@ Add `--skip-bv` if you don't want BV.
 | `.cursor/skills/` | Symlinks to `.agents/skills/` (Cursor) |
 | `docs/abase/` | Framework docs |
 | `docs/abase-templates/` | Template examples |
-| `mcp_agent_mail/` | Agent Mail submodule (venv: `.abase-venv`) |
+| `.abase/mcp_agent_mail/` | Agent Mail submodule (venv: `.abase-venv`) |
 | `.abase/scripts/` | Framework scripts (ensure/test Agent Mail) |
 | `.abase/scripts/ensure_agent_mail.sh` | Start Agent Mail server |
 | `.abase/scripts/test_agent_mail.sh` | Verify Agent Mail |
 | `.abase/scripts/setup_worktree.sh` | Create git worktree for parallel branches |
+| `.abase/hooks/` | Git hooks (pre-push prints CalVer; set `core.hooksPath`) |
 | `.abase/tests/` | P0 tests (run `./.abase/tests/run_tests.sh`) |
+| `.abase/pyproject.toml` | Framework dev deps (scenario, mcp-eval); `cd .abase && uv sync --extra scenario --extra mcp-eval` |
 
 ## Updating This Document
 
