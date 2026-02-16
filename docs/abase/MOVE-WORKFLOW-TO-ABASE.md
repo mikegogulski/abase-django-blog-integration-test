@@ -52,7 +52,7 @@ mv /home/syadasti/workflow /home/syadasti/abase
 
 - [x] `./.abase/tests/run_tests.sh` — **8 passed, 0 failed**
 - [x] `br list` — works (workflow-xxx beads)
-- [ ] `./.abase/scripts/ensure_agent_mail.sh` — run manually if needed (venv/sandbox may block auto-start)
+- [x] `./.abase/scripts/ensure_agent_mail.sh` — Agent Mail started successfully
 
 ### 7. Commit and push
 
