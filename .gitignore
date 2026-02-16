@@ -19,6 +19,9 @@
 # Framework dev venv (langwatch, mcpevals)
 .abase/.venv/
 
+# Integration test work directory (clone + blog build)
+.abase/integration-test-tmp/
+
 # Python bytecode
 __pycache__/
 

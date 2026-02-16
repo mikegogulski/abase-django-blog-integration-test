@@ -17,6 +17,7 @@ P0 and P1 tests for the abase framework. See `docs/abase/ABASE-TESTING-STRATEGY.
 - `test_scenario_i.sh` — Class I: Agent session (Scenario; skips when langwatch-scenario/API key missing)
 - `test_scenario_j.sh`, `test_scenario_k.sh`, `test_scenario_l.sh`, `test_scenario_n.sh` — Classes J, K, L, N (Scenario)
 - `test_mcp_d.sh`, `test_mcp_m.sh` — Classes D, M (mcp-eval; skips when mcpevals/Agent Mail/API key missing)
+- `integration/test_django_blog.sh` — Integration test: Django blog MVP (clone + build)
 - `run_tests.sh` — Run all P0 tests
 
 ## Usage
