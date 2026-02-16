@@ -22,6 +22,12 @@
 # Integration test work directory (clone + blog build)
 .abase/integration-test-tmp/
 
+# Pure temporary files (integration test)
+tmp/
+
+# Blog SQLite DB (local)
+blog/db.sqlite3
+
 # Python bytecode
 __pycache__/
 

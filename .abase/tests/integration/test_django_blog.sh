@@ -45,7 +45,7 @@ fi
 # Blog subdir: created when scaffold runs; for now just report
 if [[ -d "$BLOG_SUBDIR" ]]; then
   echo "PASS: Blog subdir exists"
-  (cd "$BLOG_SUBDIR" && python manage.py check 2>/dev/null) && echo "PASS: Django check" || echo "SKIP: Django check (blog not built yet)"
+  (cd "$BLOG_SUBDIR" && uv run python manage.py check 2>/dev/null) && echo "PASS: Django check" || echo "SKIP: Django check (blog not built yet)"
 else
   echo "SKIP: Blog subdir not yet created (run scaffold bead)"
 fi
