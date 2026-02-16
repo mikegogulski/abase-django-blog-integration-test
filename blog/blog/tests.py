@@ -199,3 +199,23 @@ class FlatpageTests(TestCase):
         resp = self.client.get("/contact/")
         self.assertEqual(resp.status_code, 200)
         self.assertContains(resp, "Contact")
+
+
+class FeedSitemapRobotsTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_feed(self):
+        resp = self.client.get("/feed/")
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(b"<?xml", resp.content)
+
+    def test_sitemap(self):
+        resp = self.client.get("/sitemap.xml")
+        self.assertEqual(resp.status_code, 200)
+        self.assertIn(b"<?xml", resp.content)
+
+    def test_robots(self):
+        resp = self.client.get("/robots.txt")
+        self.assertEqual(resp.status_code, 200)
+        self.assertContains(resp, "Sitemap")

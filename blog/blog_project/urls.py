@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.flatpages.sitemaps import FlatPageSitemap
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
+from django.views.generic import TemplateView
 
+from blog.feeds import PostFeed
+from blog.sitemaps import PostSitemap
 from blog.views_auth import register
 
 urlpatterns = [
@@ -25,5 +30,8 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("accounts/register/", register, name="register"),
+    path("feed/", PostFeed(), name="feed"),
+    path("sitemap.xml", sitemap, {"sitemaps": {"posts": PostSitemap, "flatpages": FlatPageSitemap}}, name="sitemap"),
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     path("", include("blog.urls")),
 ]

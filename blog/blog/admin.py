@@ -36,11 +36,3 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ["created_at"]
     search_fields = ["content"]
     raw_id_fields = ["post", "author"]
-
-
-admin.site.unregister(FlatPage)
-
-
-@admin.register(FlatPage)
-class FlatPageAdminCustom(FlatPageAdmin):
-    pass
