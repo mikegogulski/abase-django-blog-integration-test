@@ -28,7 +28,7 @@
       <button type="submit">Submit</button>
     </form>
   {% else %}
-    <p><a href="{% url 'admin:login' %}?next={{ request.path }}">Log in</a> to comment.</p>
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to comment.</p>
   {% endif %}
 </section>
 {% endblock %}

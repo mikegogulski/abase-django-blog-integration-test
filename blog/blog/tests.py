@@ -143,3 +143,32 @@ class CommentFormTests(TestCase):
         resp = self.client.post(url, {"content": "My comment"}, follow=True)
         self.assertEqual(resp.status_code, 200)
         self.assertTrue(Comment.objects.filter(content="My comment").exists())
+
+
+class AuthTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_register(self):
+        resp = self.client.get(reverse("register"))
+        self.assertEqual(resp.status_code, 200)
+        resp = self.client.post(
+            reverse("register"),
+            {"username": "newuser", "password1": "testpass123!", "password2": "testpass123!"},
+            follow=True,
+        )
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(User.objects.filter(username="newuser").exists())
+
+    def test_login_redirect_home(self):
+        User.objects.create_user(username="u", password="p")
+        resp = self.client.post(reverse("login"), {"username": "u", "password": "p"}, follow=True)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.wsgi_request.user.username, "u")
+
+    def test_logout(self):
+        User.objects.create_user(username="u", password="p")
+        self.client.login(username="u", password="p")
+        resp = self.client.post(reverse("logout"), follow=True)
+        self.assertEqual(resp.status_code, 200)
+        self.assertFalse(resp.wsgi_request.user.is_authenticated)
