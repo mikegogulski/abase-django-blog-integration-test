@@ -37,7 +37,7 @@
   - Rules and docs still referenced correctly
   - Scripts runnable from the new root
 
-So paths that are **relative to repo root** (e.g. `scripts/`, `docs/`, `.cursor/`) must either stay at root or be moved consistently and all references updated. Paths that are **absolute** (e.g. in `mcp_agent_mail/.env`: `STORAGE_ROOT=/home/syadasti/workflow/.agent_mail_mailbox`) must become project-agnostic (e.g. relative or “current project root”) when used as a template.
+So paths that are **relative to repo root** (e.g. `scripts/`, `docs/`, `.cursor/`) must either stay at root or be moved consistently and all references updated. Paths that are **absolute** (e.g. in `mcp_agent_mail/.env`: `STORAGE_ROOT=/home/syadasti/abase/.agent_mail_mailbox`) must become project-agnostic (e.g. relative or “current project root”) when used as a template.
 
 ---
 
@@ -125,8 +125,8 @@ So the things that **cannot** move for standard tool behavior are: **`.cursor/`*
 
 ## 6. Absolute paths and “new project” portability
 
-- **`mcp_agent_mail/.env`:** Contains `STORAGE_ROOT=/home/syadasti/workflow/.agent_mail_mailbox`. When copied to a new project, this must not point at the old path. **Options:** (1) Use a relative path if the server supports it (e.g. `.agent_mail_mailbox` relative to CWD when starting the server from repo root). (2) Document that after copy, the user must set `STORAGE_ROOT=<new_repo_root>/.agent_mail_mailbox` or run a one-time setup script that writes `.env` from a template. (3) Add `.env.example` with `STORAGE_ROOT=.agent_mail_mailbox` and document “copy to .env and adjust if needed”.
-- **Docs that mention “workflow” or “/home/syadasti/workflow”:** e.g. MULTI-AGENT-READINESS, AGENT-MAIL-AND-MCP-LEARNINGS. For a template, these should either be generic (“the project root”, “this repo”) or a placeholder (e.g. `PROJECT_ROOT`) that the user replaces. Already partially done; a pass to replace remaining absolute paths would improve copy-paste portability.
+- **`mcp_agent_mail/.env`:** Contains `STORAGE_ROOT=/home/syadasti/abase/.agent_mail_mailbox`. When copied to a new project, this must not point at the old path. **Options:** (1) Use a relative path if the server supports it (e.g. `.agent_mail_mailbox` relative to CWD when starting the server from repo root). (2) Document that after copy, the user must set `STORAGE_ROOT=<new_repo_root>/.agent_mail_mailbox` or run a one-time setup script that writes `.env` from a template. (3) Add `.env.example` with `STORAGE_ROOT=.agent_mail_mailbox` and document “copy to .env and adjust if needed”.
+- **Docs that mention “workflow” or “/home/syadasti/abase”:** e.g. MULTI-AGENT-READINESS, AGENT-MAIL-AND-MCP-LEARNINGS. For a template, these should either be generic (“the project root”, “this repo”) or a placeholder (e.g. `PROJECT_ROOT`) that the user replaces. Already partially done; a pass to replace remaining absolute paths would improve copy-paste portability.
 
 ---
 

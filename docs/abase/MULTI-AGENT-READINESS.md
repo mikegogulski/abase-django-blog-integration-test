@@ -10,7 +10,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 ### Beads (installed and initialized)
 
-- **CLI:** `./bin/bd` (or put `workflow/bin` on PATH). **Data:** `workflow/.beads/` (SQLite, prefix `workflow-`).
+- **CLI:** `./bin/bd` (or put `abase/bin` on PATH). **Data:** `abase/.beads/` (SQLite, prefix `workflow-`).
 - **Docs and rules** assume Beads: `bd ready --json`, `bd new`, `bd update`, `bd link`, `discovered_from`, `assignee`.
 - **AGENTS.md** and **.cursor/rules/agentic-workflow.mdc** describe the loop: get ready work → claim → work → discover → close; bounded runs (default one bead); keyword menu when input is needed.
 - **.cursor/rules/abase-workflow.mdc** explains the model; **docs/abase/AGENT-SWARM-EVALUATION.md** explains Beads + BV + Agent Mail + NTM and when to add them.
@@ -28,7 +28,7 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 ### Agent Mail (MCP) — installed and configured
 
-- **Server:** `workflow/mcp_agent_mail/`. Run with **Python 3.12** in `.abase-venv` (isolated from project `.venv`; 3.14 had pydantic errors).
+- **Server:** `abase/mcp_agent_mail/`. Run with **Python 3.12** in `.abase-venv` (isolated from project `.venv`; 3.14 had pydantic errors).
 - **Start:** `cd mcp_agent_mail && ./scripts/run_server_with_token.sh` or `uv run python -m mcp_agent_mail.cli serve-http` (default: http://127.0.0.1:8765/api/).
 - **Cursor:** project-local `.cursor/mcp.json` points at `http://127.0.0.1:8765/api/` with bearer token. Start the server before using Agent Mail in Cursor.
 - **Rules:** `.cursor/rules/abase-multi-agent-agent-mail.mdc` tells agents to register, reserve files, announce work by bead ID, check inbox, release.
@@ -62,10 +62,10 @@ Use this to refine the workflow and start using **multiple agents**, **Agent Mai
 
 ## Quick reference
 
-- **Beads:** `./bin/bd` (or `workflow/bin` on PATH); data in `.beads/`.
+- **Beads:** `./bin/bd` (or `abase/bin` on PATH); data in `.beads/`.
 - **BV:** `bv --robot-next` / `bv --robot-triage` (from `~/.local/bin`).
 - **Agent Mail:** Run `./.abase/scripts/ensure_agent_mail.sh` to start the server if needed; run `./.abase/scripts/test_agent_mail.sh` after starting or when there is trouble. See **docs/abase/AGENT-MAIL-SCRIPTS.md**.
-- **4 subagents:** Use **`STORAGE_ROOT`** in the workspace (e.g. `.agent_mail_mailbox`) so the server can write; see **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md**. Then: `ensure_project(human_key="/home/syadasti/workflow")`, then `create_agent_identity(project_key="...", program="cursor", model="agent")` per agent (omit `name` for auto-generated names). If MCP tools are unavailable, ensure the correct Agent Mail MCP server is enabled and any broken duplicate is disabled (see learnings doc).
+- **4 subagents:** Use **`STORAGE_ROOT`** in the workspace (e.g. `.agent_mail_mailbox`) so the server can write; see **docs/abase/AGENT-MAIL-AND-MCP-LEARNINGS.md**. Then: `ensure_project(human_key="/home/syadasti/abase")`, then `create_agent_identity(project_key="...", program="cursor", model="agent")` per agent (omit `name` for auto-generated names). If MCP tools are unavailable, ensure the correct Agent Mail MCP server is enabled and any broken duplicate is disabled (see learnings doc).
 
 ---
 
