@@ -24,6 +24,10 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     raw_id_fields = ["author"]
     date_hierarchy = "published_at"
+    fieldsets = (
+        (None, {"fields": ("title", "slug", "content")}),
+        ("Meta", {"fields": ("author", "category", "status", "published_at", "created_at", "updated_at")}),
+    )
 
 
 @admin.register(Comment)
@@ -32,3 +36,11 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ["created_at"]
     search_fields = ["content"]
     raw_id_fields = ["post", "author"]
+
+
+admin.site.unregister(FlatPage)
+
+
+@admin.register(FlatPage)
+class FlatPageAdminCustom(FlatPageAdmin):
+    pass

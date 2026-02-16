@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django_prose_editor.fields import ProseEditorField
 
 
 class CustomUser(AbstractUser):
@@ -44,7 +45,10 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
-    content = models.TextField()
+    content = ProseEditorField(
+        extensions={"Bold": True, "Italic": True, "BulletList": True, "ListItem": True, "Link": True},
+        sanitize=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(auto_now_add=True)

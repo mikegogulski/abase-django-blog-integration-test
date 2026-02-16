@@ -14,7 +14,7 @@
   <article>
     <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
     <p>By {{ post.author }} on {{ post.published_at|date:"Y-m-d" }}{% if post.category %} · {{ post.category.name }}{% endif %}</p>
-    <p>{{ post.content|truncatewords:30 }}</p>
+    <p>{{ post.content|striptags|truncatewords:30 }}</p>
   </article>
 {% empty %}
   <p>No posts yet.</p>

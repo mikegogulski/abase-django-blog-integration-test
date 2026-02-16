@@ -6,7 +6,7 @@
 <article>
   <h1>{{ post.title }}</h1>
   <p>By {{ post.author }} on {{ post.published_at|date:"Y-m-d" }}{% if post.category %} · {{ post.category.name }}{% endif %}</p>
-  <div>{{ post.content|linebreaks }}</div>
+  <div>{{ post.content|safe }}</div>
 </article>
 
 <section>

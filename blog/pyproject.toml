@@ -5,6 +5,7 @@ description = "Add your description here"
 requires-python = ">=3.12"
 dependencies = [
     "django>=6",
+    "django-prose-editor[sanitize]>=0.24.0",
 ]
 
 [dependency-groups]
